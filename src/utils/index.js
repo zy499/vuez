@@ -3,11 +3,11 @@
  * @Author: zy
  * @Date: 2019-08-27 09:10:58
  * @LastEditors: zy
- * @LastEditTime: 2019-10-08 10:34:57
+ * @LastEditTime: 2019-10-11 00:56:56
  */
 import Vue from 'vue'
-import router from '@/router'
-import store from '@/store'
+// import router from '@/router'
+import store from '@/store/store.js'
 
 /**
  * 获取uuid
@@ -60,11 +60,8 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
  */
 export function clearLoginInfo () {
   Vue.cookie.delete('token')
-  store.commit('resetStore')
-  router.options.isAddDynamicMenuRoutes = false
   sessionStorage.removeItem('menuList')
-  sessionStorage.removeItem('dynamicMenuRoutes')
-  sessionStorage.removeItem('permissions')
+  // sessionStorage.removeItem('permissions')
 }
 
 /**
@@ -209,7 +206,7 @@ export function deepCopy (obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
       if (typeof obj[key] === 'object' && obj[key] !== null) {
-        result[key] = deepCopy(obj[key])   // 递归复制
+        result[key] = deepCopy(obj[key]) // 递归复制
       } else {
         result[key] = obj[key]
       }

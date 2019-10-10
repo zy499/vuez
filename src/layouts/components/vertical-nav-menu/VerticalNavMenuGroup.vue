@@ -1,13 +1,10 @@
-<!-- =========================================================================================
-	File Name: VerticalNavMenuGroup.vue
-	Description: Vertical NavMenu Group Component. Extends vuesax framework's 'vs-sidebar-group' component
-	Component Name: VerticalNavMenuGroup
-	----------------------------------------------------------------------------------------
-	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-	Author: Pixinvent
-	Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-10 20:57:07
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-11 01:10:34
+ -->
 <template>
   <div
     class  = "vs-sidebar-group"
@@ -67,9 +64,10 @@
             :index  = "groupIndex + '.' + index"
             :to="groupItem.slug !== 'external' ? groupItem.url : null"
             :href="groupItem.slug === 'external' ? groupItem.url : null"
-            :icon   = "itemIcon(groupIndex + '.' + index)"
-            :slug   = "groupItem.slug"
-            :target = "groupItem.target">
+            :icon="itemIcon(groupIndex + '.' + index)"
+            :slug="groupItem.slug"
+            :isIframe="groupItem.isIframe"
+            :target="groupItem.target">
               <span class="truncate">{{ groupItem.name }}</span>
               <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
           </v-nav-menu-item>
@@ -117,6 +115,7 @@ export default {
         let func = (item) => {
           if (item.submenu) {
             item.submenu.forEach((item) => {
+              // eslint-disable-next-line eqeqeq
               if ((path == item.url || routeParent == item.slug) && item.url) { open = true } else if (item.submenu) { func(item) }
             })
           }
@@ -150,6 +149,7 @@ export default {
       }
     },
     maxHeight () {
+      // eslint-disable-next-line eqeqeq
       this.openItems = this.maxHeight != '0px'
     },
     // OPEN AND CLOSES DROPDOWN MENU ON NavMenu COLLAPSE AND DEFAULT VIEW
@@ -180,6 +180,7 @@ export default {
       if (!this.openHover) {
         let thisScrollHeight = this.$refs.items.scrollHeight
 
+        // eslint-disable-next-line eqeqeq
         if (this.maxHeight == '0px') {
           this.maxHeight = `${thisScrollHeight}px`
           setTimeout(() => {
@@ -194,6 +195,7 @@ export default {
 
         this.$parent.$children.map((child) => {
           if (child.isGroupActive) {
+            // eslint-disable-next-line eqeqeq
             if (child !== this && (!child.open) && child.maxHeight != '0px') {
               setTimeout(() => {
                 child.maxHeight = `${0}px`

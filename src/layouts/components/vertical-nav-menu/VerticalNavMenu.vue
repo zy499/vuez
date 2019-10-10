@@ -1,12 +1,10 @@
-<!-- =========================================================================================
-  File Name: VerticalNavMenu.vue
-  Description: Vertical NavMenu Component
-  Component Name: VerticalNavMenu
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-10 20:57:07
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-11 01:15:51
+ -->
 
 <template>
   <div class="parentx">
@@ -76,10 +74,12 @@
                 v-if="!item.submenu"
                 :key="`item-${index}`"
                 :index="index"
+                :url="item.url"
                 :to="item.slug !== 'external' ? item.url : null"
                 :href="item.slug === 'external' ? item.url : null"
                 :icon="item.icon" :target="item.target"
                 :isDisabled="item.isDisabled"
+                :isIframe="item.isIframe"
                 :slug="item.slug">
                   <span v-show="!verticalNavMenuItemsMin" class="truncate">{{ item.name }}</span>
                   <vs-chip class="ml-auto" :color="item.tagColor" v-if="item.tag && (isMouseEnter || !reduce)">{{ item.tag }}</vs-chip>

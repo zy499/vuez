@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-08-29 10:26:16
  * @LastEditors: zy
- * @LastEditTime: 2019-09-29 18:50:13
+ * @LastEditTime: 2019-10-10 22:22:45
  */
 import Vue from 'vue'
 import axios from 'axios'
@@ -13,7 +13,7 @@ import merge from 'lodash/merge'
 // import NProgress from 'nprogress' // progress bar
 // import 'nprogress/nprogress.css'
 import { clearLoginInfo } from '@/utils'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 // NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 // NProgress.set(0.4)
 const http = axios.create({
@@ -40,45 +40,33 @@ http.interceptors.request.use(config => {
  * 响应拦截
  */
 http.interceptors.response.use(response => {
+  return response
   // NProgress.done()
-  if (response.status) {
-    if (response.status === 200) {
-      if (response.data && response.data.code === '00000002') { // 00000002 token失效
-        clearLoginInfo()
-        Message({
-          message: '登录失效，请重新登录',
-          type: 'warning',
-          duration: 1000
-        })
-        setTimeout(() => {
-          router.push({ name: 'login' })
-        }, 2000)
-      } else if (response.data && response.data.code !== '00000000') {
-        // Message({
-        //   message: response.data.msg,
-        //   type: 'error',
-        //   duration: 2000
-        // })
-        console.log('err:', response.data.msg)
-        return Promise.reject(response)
-      } else {
-        return Promise.resolve(response.data)
-      }
-    } else {
-      return Promise.reject(response)
-    }
-  }
+  // if (response.status) {
+  // if (response.status === 200) {
+  //   if (response.data && response.data.code === '00000002') { // 00000002 token失效
+  //     clearLoginInfo()
+  //     this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
+  //     setTimeout(() => {
+  //       router.push({ name: 'login' })
+  //     }, 2000)
+  //   } else if (response.data && response.data.code !== '00000000') {
+  //     console.log('err:', response.data.msg)
+  //     return Promise.reject(response)
+  //   } else {
+  //     return Promise.resolve(response.data)
+  //   }
+  // } else {
+  //   return Promise.reject(response)
+  // }
+  // }
 }, error => {
   // NProgress.done()
   if (error && error.response) {
     switch (error.response.status) {
       case 401:
         clearLoginInfo()
-        Message({
-          message: '登录失效，请重新登录',
-          type: 'warning',
-          duration: 1000
-        })
+        this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
         setTimeout(() => {
           router.push({ name: 'login' })
         }, 2000)
@@ -124,7 +112,8 @@ http.interceptors.response.use(response => {
  */
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
-  return (process.env.NODE_ENV !== 'production' && process.env.OPEN_PROXY ? '/proxyApi/' : window.SITE_CONFIG.baseUrl) + actionName
+  // return (process.env.NODE_ENV !== 'production' && process.env.OPEN_PROXY ? '/api/' : window.SITE_CONFIG.baseUrl) + actionName
+  return '/api/' + actionName
 }
 
 /**

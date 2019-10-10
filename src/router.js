@@ -1,38 +1,28 @@
-/* =========================================================================================
-  File Name: router.js
-  Description: Routes for vue-router. Lazy loading is enabled.
-  Object Strucutre:
-                    path => router path
-                    name => router name
-                    component(lazy loading) => component to load
-                    meta : {
-                      rule => which user can have access (ACL)
-                      breadcrumb => Add breadcrumb to specific page
-                      pageTitle => Display title besides breadcrumb
-                    }
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== */
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-10 20:57:07
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-11 00:42:10
+ */
 
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import { clearLoginInfo } from '@/utils'
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior () {
+  scrollBehavior() {
     return { x: 0, y: 0 }
   },
   routes: [
 
     {
-    // =============================================================================
-    // MAIN LAYOUT ROUTES
-    // =============================================================================
+      // =============================================================================
+      // MAIN LAYOUT ROUTES
+      // =============================================================================
       path: '',
       component: () => import('./layouts/main/Main.vue'),
       children: [
@@ -63,7 +53,7 @@ const router = new Router({
         // =============================================================================
         {
           path: '/pages/login',
-          name: 'page-login',
+          name: 'login',
           component: () => import('@/views/pages/Login.vue')
         },
         {
@@ -80,7 +70,16 @@ const router = new Router({
     }
   ]
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login') {
+    let token = Vue.cookie.get('token')
+    if (!token || !/\S/.test(token)) {
+      clearLoginInfo()
+      next({ name: 'login' })
+    }
+  }
+  next()
+})
 router.afterEach(() => {
   // Remove initial loading
   const appLoading = document.getElementById('loading-bg')

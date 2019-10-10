@@ -3,17 +3,8 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-03 14:50:54
+ * @LastEditTime: 2019-10-11 00:54:24
  -->
-<!-- =========================================================================================
-    File Name: Main.vue
-    Description: Main layout
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
 
@@ -137,7 +128,7 @@
 <script>
 import BackToTop from 'vue-backtotop'
 import HNavMenu from '@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue'
-import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
+// import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
 import TheCustomizer from '@/layouts/components/customizer/TheCustomizer.vue'
 import TheNavbarHorizontal from '@/layouts/components/navbar/TheNavbarHorizontal.vue'
 import TheNavbarVertical from '@/layouts/components/navbar/TheNavbarVertical.vue'
@@ -164,7 +155,7 @@ export default {
       isNavbarDark: false,
       navbarColor: themeConfig.navbarColor || '#fff',
       navbarType: themeConfig.navbarType || 'floating',
-      navMenuItems: navMenuItems,
+      navMenuItems: [],
       navMenuLogo: require('@/assets/images/logo/logo.png'),
       routerTransition: themeConfig.routerTransition || 'none',
       routeTitle: this.$route.meta.pageTitle
@@ -175,7 +166,7 @@ export default {
       this.routeTitle = this.$route.meta.pageTitle
     },
     isThemeDark (val) {
-      const color = this.navbarColor == '#fff' && val ? '#10163a' : '#fff'
+      const color = this.navbarColor === '#fff' && val ? '#10163a' : '#fff'
       this.updateNavbarColor(color)
     },
     '$store.state.mainLayoutType' (val) {
@@ -191,33 +182,37 @@ export default {
   },
   computed: {
     bodyOverlay () { return this.$store.state.bodyOverlay },
+    // eslint-disable-next-line vue/return-in-computed-property
     contentAreaClass () {
       if (this.mainLayoutType === 'vertical') {
-        if (this.verticalNavMenuWidth == 'default') return 'content-area-reduced'
-        else if (this.verticalNavMenuWidth == 'reduced') return 'content-area-lg'
+        if (this.verticalNavMenuWidth === 'default') {
+          return 'content-area-reduced'
+        } else if (this.verticalNavMenuWidth === 'reduced') {
+          return 'content-area-lg'
+        }
+      } else {
+        return 'content-area-full'
       }
-      // else if(this.mainLayoutType === "boxed") return "content-area-reduced"
-      else return 'content-area-full'
     },
     footerClasses () {
       return {
-        'footer-hidden': this.footerType == 'hidden',
-        'footer-sticky': this.footerType == 'sticky',
-        'footer-static': this.footerType == 'static'
+        'footer-hidden': this.footerType === 'hidden',
+        'footer-sticky': this.footerType === 'sticky',
+        'footer-static': this.footerType === 'static'
       }
     },
     isAppPage () {
       return !!this.$route.path.includes('/apps/')
     },
-    isThemeDark () { return this.$store.state.theme == 'dark' },
+    isThemeDark () { return this.$store.state.theme === 'dark' },
     layoutTypeClass () { return `main-${this.mainLayoutType}` },
     mainLayoutType () { return this.$store.state.mainLayoutType },
     navbarClasses () {
       return {
-        'navbar-hidden': this.navbarType == 'hidden',
-        'navbar-sticky': this.navbarType == 'sticky',
-        'navbar-static': this.navbarType == 'static',
-        'navbar-floating': this.navbarType == 'floating'
+        'navbar-hidden': this.navbarType === 'hidden',
+        'navbar-sticky': this.navbarType === 'sticky',
+        'navbar-static': this.navbarType === 'static',
+        'navbar-floating': this.navbarType === 'floating'
       }
     },
     verticalNavMenuWidth () { return this.$store.state.verticalNavMenuWidth },
@@ -228,12 +223,12 @@ export default {
       this.routeTitle = title
     },
     updateNavbar (val) {
-      if (val == 'static') this.updateNavbarColor('#fff')
+      if (val === 'static') this.updateNavbarColor('#fff')
       this.navbarType = val
     },
     updateNavbarColor (val) {
       this.navbarColor = val
-      if (val == '#fff') this.isNavbarDark = false
+      if (val === '#fff') this.isNavbarDark = false
       else this.isNavbarDark = true
     },
     updateFooter (val) {
@@ -255,9 +250,10 @@ export default {
     }
   },
   created () {
-    const color = this.navbarColor == '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
+    const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
+    this.navMenuItems = [this.navMenuItems,...JSON.parse(sessionStorage.getItem('menuList'))] 
   }
 }
 

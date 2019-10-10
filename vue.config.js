@@ -3,14 +3,13 @@
  * @Author: zy
  * @Date: 2019-10-03 14:16:32
  * @LastEditors: zy
- * @LastEditTime: 2019-10-10 17:07:48
+ * @LastEditTime: 2019-10-10 22:06:43
  */
 const path = require('path')
-
-function resolve(dir) {
+console.log(process.env.NODE_ENV)
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
-const port = '8080'
 module.exports = {
   publicPath: '/',
   transpileDependencies: [
@@ -41,9 +40,8 @@ module.exports = {
       errors: true
     },
     proxy: {
-      port: port,
       '/api': {
-        target: `http://127.0.0.1:${port}/mock`,
+        target: `https://easy-mock.com/mock/5d9f2e79cda1720dffee5ea4/mock`,
         changeOrigin: true,
         pathRewrite: {
           '^api': ''

@@ -3,27 +3,27 @@
  * @Author: zy
  * @Date: 2019-08-29 10:26:04
  * @LastEditors: zy
- * @LastEditTime: 2019-10-10 17:12:30
+ * @LastEditTime: 2019-10-10 23:42:32
  */
 import Mock from 'mockjs'
-// import * as common from './modules/common'
+import * as common from './modules/common'
 // import * as jobSchedule from './modules/job-schedule'
 // import * as oss from './modules/oss'
 // import * as sysConfig from './modules/sys-config'
 // import * as sysLog from './modules/sys-log'
-// import * as sysMenu from './modules/sys-menu'
+import * as sysMenu from './modules/sys-menu'
 // import * as sysRole from './modules/sys-role'
 // import * as sysUser from './modules/sys-user'
 
 // tips
 // 1. 开启/关闭[业务模块]拦截, 通过调用fnCreate方法[isOpen参数]设置.
 // 2. 开启/关闭[业务模块中某个请求]拦截, 通过函数返回对象中的[isOpen属性]设置.
-// fnCreate(common, true)
+fnCreate(common, true)
 // fnCreate(jobSchedule, false)
 // fnCreate(oss, false)
 // fnCreate(sysConfig, false)
 // fnCreate(sysLog, false)
-// fnCreate(sysMenu, false)
+fnCreate(sysMenu, true)
 // fnCreate(sysRole, false)
 // fnCreate(sysUser, true)
 
