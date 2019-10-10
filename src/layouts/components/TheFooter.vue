@@ -8,7 +8,6 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
-
 <template functional>
     <footer class="the-footer flex-wrap justify-between" :class="classes">
         <span>COPYRIGHT @ {{ new Date().getFullYear() }} <a href="https://1.envato.market/vuexy_admin" target="_blank" rel="nofollow">Pixinvent</a>, All rights Reserved</span>
@@ -21,11 +20,11 @@
 
 <script>
 export default {
-    name: "the-footer",
-    props: {
-        classes: {
-            type: String,
-        },
+  name: 'the-footer',
+  props: {
+    classes: {
+      type: String
     }
+  }
 }
 </script>

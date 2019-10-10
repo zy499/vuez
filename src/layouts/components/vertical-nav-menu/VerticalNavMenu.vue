@@ -8,7 +8,6 @@
   Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
-
 <template>
   <div class="parentx">
 
@@ -112,7 +111,6 @@
   </div>
 </template>
 
-
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import VNavMenuGroup from './VerticalNavMenuGroup.vue'
@@ -123,40 +121,39 @@ export default {
   components: {
     VNavMenuGroup,
     VNavMenuItem,
-    VuePerfectScrollbar,
+    VuePerfectScrollbar
   },
   props: {
-    logo:             { type: String },
-    openGroupHover:   { type: Boolean, default: false },
-    parent:           { type: String },
+    logo: { type: String },
+    openGroupHover: { type: Boolean, default: false },
+    parent: { type: String },
     reduceNotRebound: { type: Boolean, default: true },
-    navMenuItems:     { type: Array,   required: true },
-    title:            { type: String },
+    navMenuItems: { type: Array, required: true },
+    title: { type: String }
   },
   data: () => ({
-    clickNotClose       : false, // disable close navMenu on outside click
-    isMouseEnter        : false,
-    reduce              : false, // determines if navMenu is reduce - component property
-    showCloseButton     : false, // show close button in smaller devices
-    settings            : {      // perfectScrollbar settings
+    clickNotClose: false, // disable close navMenu on outside click
+    isMouseEnter: false,
+    reduce: false, // determines if navMenu is reduce - component property
+    showCloseButton: false, // show close button in smaller devices
+    settings: { // perfectScrollbar settings
       maxScrollbarLength: 60,
-      wheelSpeed        : 1,
-      swipeEasing       : true
+      wheelSpeed: 1,
+      swipeEasing: true
     },
-    showShadowBottom    : false,
+    showShadowBottom: false
   }),
   computed: {
-    isGroupActive() {
+    isGroupActive () {
       return (item) => {
-        const path        = this.$route.fullPath
+        const path = this.$route.fullPath
         const routeParent = this.$route.meta ? this.$route.meta.parent : undefined
-        let open          = false
+        let open = false
 
         let func = (item) => {
           if (item.submenu) {
             item.submenu.forEach((item) => {
-              if (item.url && (path === item.url || routeParent === item.slug)) { open = true }
-              else if (item.submenu) { func(item) }
+              if (item.url && (path === item.url || routeParent === item.slug)) { open = true } else if (item.submenu) { func(item) }
             })
           }
         }
@@ -164,13 +161,13 @@ export default {
         return open
       }
     },
-    menuItemsUpdated() {
+    menuItemsUpdated () {
       let clone = this.navMenuItems.slice()
 
-      for(let [index, item] of this.navMenuItems.entries()) {
+      for (let [index, item] of this.navMenuItems.entries()) {
         if (item.header && item.items.length && (index || 1)) {
           let i = clone.findIndex(ix => ix.header === item.header)
-          for(let [subIndex, subItem] of item.items.entries()) {
+          for (let [subIndex, subItem] of item.items.entries()) {
             clone.splice(i + 1 + subIndex, 0, subItem)
           }
         }
@@ -179,76 +176,74 @@ export default {
       return clone
     },
     isVerticalNavMenuActive: {
-      get()    { return this.$store.state.isVerticalNavMenuActive },
-      set(val) { this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', val) }
+      get () { return this.$store.state.isVerticalNavMenuActive },
+      set (val) { this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', val) }
     },
-    layoutType() { return this.$store.state.mainLayoutType },
+    layoutType () { return this.$store.state.mainLayoutType },
     reduceButton: {
-      get()    { return this.$store.state.reduceButton },
-      set(val) { this.$store.commit('TOGGLE_REDUCE_BUTTON', val) }
+      get () { return this.$store.state.reduceButton },
+      set (val) { this.$store.commit('TOGGLE_REDUCE_BUTTON', val) }
     },
-    isVerticalNavMenuReduced()   { return Boolean(this.reduce && this.reduceButton) },
-    verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
-    windowWidth()     { return this.$store.state.windowWidth }
+    isVerticalNavMenuReduced () { return Boolean(this.reduce && this.reduceButton) },
+    verticalNavMenuItemsMin () { return this.$store.state.verticalNavMenuItemsMin },
+    windowWidth () { return this.$store.state.windowWidth }
   },
   watch: {
-    '$route'() {
+    '$route' () {
       if (this.isVerticalNavMenuActive && this.showCloseButton) this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', false)
     },
-    reduce(val) {
-      const verticalNavMenuWidth = val ? "reduced" : "default"
+    reduce (val) {
+      const verticalNavMenuWidth = val ? 'reduced' : 'default'
       this.$store.dispatch('updateVerticalNavMenuWidth', verticalNavMenuWidth)
 
-      setTimeout(function() {
+      setTimeout(function () {
         window.dispatchEvent(new Event('resize'))
       }, 100)
     },
-    layoutType()   { this.setVerticalNavMenuWidth() },
-    reduceButton() { this.setVerticalNavMenuWidth() },
-    windowWidth()  { this.setVerticalNavMenuWidth() }
+    layoutType () { this.setVerticalNavMenuWidth() },
+    reduceButton () { this.setVerticalNavMenuWidth() },
+    windowWidth () { this.setVerticalNavMenuWidth() }
   },
   methods: {
     // handleWindowResize(event) {
     //   this.windowWidth = event.currentTarget.innerWidth;
     //   this.setVerticalNavMenuWidth()
     // },
-    onSwipeLeft() {
+    onSwipeLeft () {
       if (this.isVerticalNavMenuActive && this.showCloseButton) this.isVerticalNavMenuActive = false
     },
-    onSwipeAreaSwipeRight() {
+    onSwipeAreaSwipeRight () {
       if (!this.isVerticalNavMenuActive && this.showCloseButton) this.isVerticalNavMenuActive = true
     },
-    psSectionScroll() {
-      this.showShadowBottom = this.$refs.verticalNavMenuPs.$el.scrollTop > 0 ? true : false
+    psSectionScroll () {
+      this.showShadowBottom = this.$refs.verticalNavMenuPs.$el.scrollTop > 0
     },
-    mouseEnter() {
+    mouseEnter () {
       if (this.reduce) this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', false)
       this.isMouseEnter = true
     },
-    mouseLeave() {
+    mouseLeave () {
       if (this.reduce) this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', true)
-      this.isMouseEnter = false;
+      this.isMouseEnter = false
     },
-    setVerticalNavMenuWidth() {
-
-      if(this.windowWidth > 1200) {
-        if(this.layoutType === 'vertical') {
-
+    setVerticalNavMenuWidth () {
+      if (this.windowWidth > 1200) {
+        if (this.layoutType === 'vertical') {
           // Set reduce
-          this.reduce = this.reduceButton ? true : false
+          this.reduce = !!this.reduceButton
 
           // Open NavMenu
           this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true)
 
           // Set Menu Items Only Icon Mode
-          const verticalNavMenuItemsMin = (this.reduceButton && !this.isMouseEnter) ? true : false
+          const verticalNavMenuItemsMin = !!((this.reduceButton && !this.isMouseEnter))
           this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', verticalNavMenuItemsMin)
 
           // Menu Action buttons
-          this.clickNotClose   = true
+          this.clickNotClose = true
           this.showCloseButton = false
 
-          const verticalNavMenuWidth   = this.isVerticalNavMenuReduced ? "reduced" : "default"
+          const verticalNavMenuWidth = this.isVerticalNavMenuReduced ? 'reduced' : 'default'
           this.$store.dispatch('updateVerticalNavMenuWidth', verticalNavMenuWidth)
 
           return
@@ -263,15 +258,13 @@ export default {
 
       // Menu Action buttons
       this.showCloseButton = true
-      this.clickNotClose   = false
+      this.clickNotClose = false
 
       // Update NavMenu Width
       this.$store.dispatch('updateVerticalNavMenuWidth', 'no-nav-menu')
 
       // Remove Only Icon in Menu
       this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', false)
-
-
 
       // if(this.layoutType === 'vertical' || (this.layoutType === 'horizontal' && this.windowWidth < 1200))
       // if (this.windowWidth < 1200) {
@@ -312,18 +305,17 @@ export default {
       //   this.$store.dispatch('updateVerticalNavMenuWidth', verticalNavMenuWidth)
       // }
     },
-    toggleReduce(val) {
+    toggleReduce (val) {
       this.reduceButton = val
       this.setVerticalNavMenuWidth()
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.setVerticalNavMenuWidth()
-  },
+  }
 }
 
 </script>
-
 
 <style lang="scss">
 @import "@/assets/scss/vuexy/components/verticalNavMenu.scss"

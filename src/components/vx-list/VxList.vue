@@ -8,7 +8,6 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
-
 <template functional>
     <ul class="list">
         <li class="list__item" v-for="(item, index) in props.list" :key="index">
@@ -19,17 +18,17 @@
 
 <script>
 export default {
-    name: "vx-list",
-    props: {
-        list: {
-            type: Array,
-            required: true,
-        },
-        icon: {
-            type: String,
-            default: "ChevronsRightIcon",
-        },
+  name: 'vx-list',
+  props: {
+    list: {
+      type: Array,
+      required: true
     },
+    icon: {
+      type: String,
+      default: 'ChevronsRightIcon'
+    }
+  }
 }
 </script>
 

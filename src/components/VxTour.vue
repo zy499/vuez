@@ -83,22 +83,22 @@
 </template>
 
 <script>
-export default{
-    name: 'vx-tour',
-    props: {
-        steps: {
-            required: true,
-            type: Array
-        }
-    },
-    watch: {
-      '$route.path'() {
-        this.$tours['vuexyTour'].stop()
-      }
-    },
-    mounted() {
-        this.$tours['vuexyTour'].start()
+export default {
+  name: 'vx-tour',
+  props: {
+    steps: {
+      required: true,
+      type: Array
     }
+  },
+  watch: {
+    '$route.path' () {
+      this.$tours['vuexyTour'].stop()
+    }
+  },
+  mounted () {
+    this.$tours['vuexyTour'].start()
+  }
 }
 </script>
 

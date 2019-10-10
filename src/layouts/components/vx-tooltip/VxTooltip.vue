@@ -23,73 +23,73 @@
 import utils from '@/assets/utils'
 import _color from '@/assets/utils/color.js'
 export default {
-  name:'vx-tooltip',
-  props:{
-    title:{
-      default:null,
-      type:[String,Number]
+  name: 'vx-tooltip',
+  props: {
+    title: {
+      default: null,
+      type: [String, Number]
     },
-    text:{
-      default:null,
-      type:[String,Number]
+    text: {
+      default: null,
+      type: [String, Number]
     },
-    color:{
-      default:null,
-      type:String
+    color: {
+      default: null,
+      type: String
     },
-    position:{
-      default:'top',
-      type:String
+    position: {
+      default: 'top',
+      type: String
     },
-    delay:{
-      default:'0s',
-      type:[Number,String]
+    delay: {
+      default: '0s',
+      type: [Number, String]
     }
   },
-  data:()=>({
-    cords:{},
-    active:false,
+  data: () => ({
+    cords: {},
+    active: false,
     widthx: 'auto',
     positionx: null,
     noneAfter: false
   }),
-  computed:{
-    style(){
+  computed: {
+    style () {
       return {
-        left:this.cords.left,
-        top:this.cords.top,
-        transitionDelay: this.active?this.delay:'0s',
-        background:_color.getColor(this.color,1),
+        left: this.cords.left,
+        top: this.cords.top,
+        transitionDelay: this.active ? this.delay : '0s',
+        background: _color.getColor(this.color, 1),
         width: this.widthx
       }
     }
   },
-  methods:{
-    mouseenterx(){
+  methods: {
+    mouseenterx () {
       this.active = true
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         utils.insertBody(this.$refs.vstooltip)
-        this.changePosition(this.$refs.convstooltip,this.$refs.vstooltip)
+        this.changePosition(this.$refs.convstooltip, this.$refs.vstooltip)
       })
     },
-    mouseleavex(){
+    mouseleavex () {
       this.active = false
     },
-    changePosition(elxEvent, tooltip){
+    changePosition (elxEvent, tooltip) {
       this.noneAfter = false
       this.positionx = null
       let elx = elxEvent.closest('.con-vs-tooltip')
-      let scrollTopx = window.pageYOffset || document.documentElement.scrollTop;
+      let scrollTopx = window.pageYOffset || document.documentElement.scrollTop
       let topx = elx.getBoundingClientRect().top + scrollTopx - tooltip.clientHeight - 4
       let leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 + elx.clientWidth / 2
       let widthx = elx.clientWidth
 
-      if(this.position == 'bottom'){
+      if (this.position == 'bottom') {
         topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
       } else if (this.position == 'left') {
         leftx = elx.getBoundingClientRect().left - tooltip.clientWidth - 4
         topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2)
-        if (Math.sign(leftx)==-1) {
+        if (Math.sign(leftx) == -1) {
           leftx = elx.getBoundingClientRect().left
           topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
           this.positionx = 'bottom'
@@ -98,7 +98,7 @@ export default {
       } else if (this.position == 'right') {
         leftx = elx.getBoundingClientRect().left + elx.clientWidth + 4
         topx = elx.getBoundingClientRect().top + scrollTopx + (elx.clientHeight / 2) - (tooltip.clientHeight / 2)
-        if( window.innerWidth - (leftx + tooltip.clientWidth) <= 20) {
+        if (window.innerWidth - (leftx + tooltip.clientWidth) <= 20) {
           leftx = elx.getBoundingClientRect().left - tooltip.clientWidth / 2 - 10
           topx = elx.getBoundingClientRect().top + scrollTopx + elx.clientHeight + 4
           this.positionx = 'bottom'
@@ -111,14 +111,14 @@ export default {
         width: `${widthx}px`
       }
     },
-    destroy() {
-        this.active = false
-        this.$nextTick(()=>{
-            if(this.active) {
-              utils.removeBody(this.$refs.vstooltip)
-            }
-        })
-    },
+    destroy () {
+      this.active = false
+      this.$nextTick(() => {
+        if (this.active) {
+          utils.removeBody(this.$refs.vstooltip)
+        }
+      })
+    }
   }
 }
 </script>

@@ -7,7 +7,6 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
-
 <template>
   <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center" id="page-login">
     <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
@@ -91,12 +90,12 @@
 </template>
 
 <script>
-export default{
-  data() {
+export default {
+  data () {
     return {
-      email: "",
-      password: "",
-      checkbox_remember_me: false,
+      email: '',
+      password: '',
+      checkbox_remember_me: false
     }
   }
 }
