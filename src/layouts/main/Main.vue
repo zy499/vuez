@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 00:54:24
+ * @LastEditTime: 2019-10-11 01:22:42
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -253,7 +253,7 @@ export default {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
-    this.navMenuItems = [this.navMenuItems,...JSON.parse(sessionStorage.getItem('menuList'))] 
+    this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
   }
 }
 
