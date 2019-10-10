@@ -1,11 +1,10 @@
-<!-- =========================================================================================
-    File Name: Login.vue
-    Description: Login Page
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 15:00:20
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-03 15:00:20
+ -->
 
 <template>
   <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center" id="page-login">

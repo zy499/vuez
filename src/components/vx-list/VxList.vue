@@ -1,13 +1,10 @@
-<!-- =========================================================================================
-    File Name: VxList.vue
-    Description: list Component
-    Component Name: VxList
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-03 14:16:32
+ -->
 <template functional>
     <ul class="list">
         <li class="list__item" v-for="(item, index) in props.list" :key="index">
