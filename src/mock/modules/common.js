@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 01:17:44
+ * @LastEditTime: 2019-10-11 09:55:29
  */
 import Mock from 'mockjs'
 
@@ -29,22 +29,15 @@ export function login () {
           url: '/page2',
           name: 'Page 2',
           slug: 'page2',
-          icon: 'FileIcon'
+          icon: 'FileIcon',
+          isDisabled: true
         },
         {
           url: '/page3',
           name: 'Page 3',
           slug: 'page3',
-          icon: 'FileIcon',
-          isDisabled: true
-        },
-        // {
-        //   url: 'http://www.baidu.com',
-        //   name: 'Page 3',
-        //   slug: 'page3',
-        //   icon: 'FileIcon',
-        //   isIframe: true
-        // }
+          icon: 'FileIcon'
+        }
       ]
     }
   }

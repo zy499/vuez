@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 01:22:42
+ * @LastEditTime: 2019-10-11 14:56:14
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -62,8 +62,8 @@
 
       <div class="content-wrapper">
 
-        <div class="router-view">
-          <div class="router-content">
+        <div class="router-view" :style="{height:$route.meta.iframeUrl ? 'calc(100vh - 6.5rem)': ''}">
+          <div class="router-content" :style="{height:$route.meta.iframeUrl ? '100%': ''}">
 
             <transition :name="routerTransition">
 
@@ -107,14 +107,21 @@
               </div>
             </transition>
 
-            <div class="content-area__content">
+            <div class="content-area__content" :style="{height:$route.meta.iframeUrl ? '100%': ''}">
 
               <back-to-top bottom="5%" visibleoffset="500" v-if="!hideScrollToTop">
                 <vs-button icon-pack="feather" icon="icon-arrow-up" class="shadow-lg btn-back-to-top" />
               </back-to-top>
-
               <transition :name="routerTransition" mode="out-in">
-                <router-view @changeRouteTitle="changeRouteTitle"></router-view>
+                <router-view v-if="!$route.meta.iframeUrl"  @changeRouteTitle="changeRouteTitle"></router-view>
+                 <iframe
+                    v-else
+                    :src="$route.meta.iframeUrl"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    scrolling="yes"
+                  ></iframe>
               </transition>
             </div>
           </div>
@@ -126,9 +133,10 @@
 </template>
 
 <script>
+import { isURL } from '@/utils/validate'
 import BackToTop from 'vue-backtotop'
 import HNavMenu from '@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue'
-// import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
+import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
 import TheCustomizer from '@/layouts/components/customizer/TheCustomizer.vue'
 import TheNavbarHorizontal from '@/layouts/components/navbar/TheNavbarHorizontal.vue'
 import TheNavbarVertical from '@/layouts/components/navbar/TheNavbarVertical.vue'
@@ -155,7 +163,7 @@ export default {
       isNavbarDark: false,
       navbarColor: themeConfig.navbarColor || '#fff',
       navbarType: themeConfig.navbarType || 'floating',
-      navMenuItems: [],
+      navMenuItems: navMenuItems,
       navMenuLogo: require('@/assets/images/logo/logo.png'),
       routerTransition: themeConfig.routerTransition || 'none',
       routeTitle: this.$route.meta.pageTitle
@@ -219,6 +227,9 @@ export default {
     windowWidth () { return this.$store.state.windowWidth }
   },
   methods: {
+    isURL (str) {
+      return isURL(str)
+    },
     changeRouteTitle (title) {
       this.routeTitle = title
     },
@@ -253,7 +264,7 @@ export default {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
-    this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
+    // this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
   }
 }
 

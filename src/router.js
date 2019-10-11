@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 00:42:10
+ * @LastEditTime: 2019-10-11 15:32:09
  */
 
 import Vue from 'vue'
@@ -12,7 +12,7 @@ import { clearLoginInfo } from '@/utils'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   scrollBehavior() {
     return { x: 0, y: 0 }
@@ -38,6 +38,14 @@ const router = new Router({
           path: '/page2',
           name: 'page-2',
           component: () => import('./views/Page2.vue')
+        },
+        {
+          path: '/page3',
+          name: 'page-3',
+          component: null,
+          meta:{
+            iframeUrl:'http://nccc.cdmetrokyb.com'
+          }
         }
       ]
     },

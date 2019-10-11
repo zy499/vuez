@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 15:00:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 00:48:46
+ * @LastEditTime: 2019-10-11 15:23:39
  -->
 
 <template>
@@ -56,6 +56,9 @@
 </template>
 
 <script>
+import md5 from 'js-md5'
+import { Base64 } from 'js-base64'
+import { login } from '@/api/user'
 export default {
   data() {
     return {
@@ -66,26 +69,39 @@ export default {
   methods: {
     handleLogin() {
       this.$vs.loading();
-      this.$http({
-        url: this.$http.adornUrl("sys/login"),
-        method: "post",
-        data: this.$http.adornData({
-          username: this.userName,
-          password: this.password
-        })
-      }).then(({ data }) => {
-        this.$vs.loading.close();
-        if (data && data.code === 0) {
-          this.$cookie.set("token", data.token);
-          sessionStorage.setItem(
-            "menuList",
-            JSON.stringify(data.menuList || "[]")
-          );
-          this.$router.replace({ name: "home" });
-        } else {
-          this.$message.error(data.msg);
-        }
-      });
+      // this.$http({
+      //   url: this.$http.adornUrl("sys/login"),
+      //   method: "post",
+      //   data: this.$http.adornData({
+      //     username: this.userName,
+      //     password: this.password
+      //   })
+      // }).then(({ data }) => {
+      //   this.$vs.loading.close();
+      //   if (data && data.code === 0) {
+      //     this.$cookie.set("token", data.token);
+      //     sessionStorage.setItem(
+      //       "menuList",
+      //       JSON.stringify(data.menuList || "[]")
+      //     );
+      //     this.$router.replace({ name: "home" });
+      //   } else {
+      //     this.$message.error(data.msg);
+      //   }
+      // });
+      login({
+            account: this.userName,
+            password: Base64.encode(
+              md5(this.password) + ';' + new Date()
+            )
+            // password: this.dataForm.password
+          }).then(({ data }) => {
+            this.$vs.loading.close();
+            this.$cookie.set('token', data.token)
+            this.$router.replace({ name: 'home' })
+          }).catch(err => {
+            this.$vs.loading.close();
+          })
     }
   }
 };

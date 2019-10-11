@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:16:32
  * @LastEditors: zy
- * @LastEditTime: 2019-10-10 22:06:43
+ * @LastEditTime: 2019-10-11 15:21:20
  */
 const path = require('path')
 console.log(process.env.NODE_ENV)
@@ -39,14 +39,14 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    proxy: {
-      '/api': {
-        target: `https://easy-mock.com/mock/5d9f2e79cda1720dffee5ea4/mock`,
-        changeOrigin: true,
-        pathRewrite: {
-          '^api': ''
-        }
-      }
-    }
+    // proxy: {
+    //   '/api': {
+    //     target: `http://10.253.100.13:31503/nccc/`,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '^api': ''
+    //     }
+    //   }
+    // }
   }
 }
