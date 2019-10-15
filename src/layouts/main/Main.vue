@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 14:56:14
+ * @LastEditTime: 2019-10-15 16:41:11
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -24,7 +24,7 @@
     <v-nav-menu
       :navMenuItems = "navMenuItems"
       :logo         = "navMenuLogo"
-      title         = "Vuexy"
+      title         = ""
       parent        = ".layout--main" />
 
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">
@@ -62,7 +62,7 @@
 
       <div class="content-wrapper">
 
-        <div class="router-view" :style="{height:$route.meta.iframeUrl ? 'calc(100vh - 6.5rem)': ''}">
+        <div class="router-view" :style="{height:$route.meta.iframeUrl ? ($store.state.mainLayoutType === 'vertical' ? 'calc(100vh - 6.5rem)' : 'calc(100vh - 11.5rem)') : ''}">
           <div class="router-content" :style="{height:$route.meta.iframeUrl ? '100%': ''}">
 
             <transition :name="routerTransition">
@@ -120,7 +120,8 @@
                     width="100%"
                     height="100%"
                     frameborder="0"
-                    scrolling="yes"
+                    scrolling="auto"
+                    ref="myIframe"
                   ></iframe>
               </transition>
             </div>
@@ -156,6 +157,7 @@ export default {
   },
   data () {
     return {
+      iframeWin: null,
       disableCustomizer: themeConfig.disableCustomizer,
       disableThemeTour: themeConfig.disableThemeTour,
       footerType: themeConfig.footerType || 'static',
@@ -230,6 +232,16 @@ export default {
     isURL (str) {
       return isURL(str)
     },
+    // handleMessage (event) {
+    //   const { data } = event
+    //   switch (data.cmd) {
+    //     case 'returnHeight':
+    //       if (data.params.success) {
+    //         console.log(data.params.data)
+    //         this.iframeWin.height = data.params.data + 300 + 'px'
+    //       }
+    //   }
+    // },
     changeRouteTitle (title) {
       this.routeTitle = title
     },
@@ -260,6 +272,13 @@ export default {
       this.hideScrollToTop = val
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      // this.setIframeHeight(document.getElementById('myIframe'))
+      window.addEventListener('message', this.handleMessage)
+      this.iframeWin = this.$refs.myIframe
+    })
+  },
   created () {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
@@ -269,3 +288,28 @@ export default {
 }
 
 </script>
+
+<style>
+  /*- scrollbar -*/
+  ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+  }
+  ::-webkit-scrollbar-thumb{
+      background-color: red;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:vertical:hover{
+      background-color: #666;
+  }
+  ::-webkit-scrollbar-thumb:vertical:active{
+      background-color: #333;
+  }
+  ::-webkit-scrollbar-button{
+      display: none;
+  }
+  ::-webkit-scrollbar-track{
+      background-color: #f1f1f1;
+  }
+</style>

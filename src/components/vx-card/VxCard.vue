@@ -1,12 +1,10 @@
-<!-- =========================================================================================
-    File Name: VxCard.vue
-    Description: Card Component
-    Component Name: VxCard
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-14 10:08:10
+ -->
 
  <template>
     <div class="vx-card" ref="card" :class="[
@@ -225,6 +223,7 @@ export default {
     toggleContent () {
       this.$refs.content.style.overflow = 'hidden'
       let scrollHeight = this.$refs.content.scrollHeight
+      // eslint-disable-next-line eqeqeq
       if (this.maxHeight == '1.5rem') {
         this.maxHeight = `${scrollHeight}px`
         setTimeout(() => {
@@ -268,6 +267,7 @@ export default {
       this.tempHidden = true
       this.showCode = !this.showCode
       let scrollHeight = this.$refs.codeContainer.scrollHeight
+      // eslint-disable-next-line eqeqeq
       if (this.codeContainerMaxHeight == '0px') {
         this.codeContainerMaxHeight = `${scrollHeight}px`
         setTimeout(() => {

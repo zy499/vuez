@@ -1,4 +1,11 @@
 /*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-15 14:55:31
+ */
+/*
 
 Tailwind - The Utility-First CSS Framework
 
@@ -420,6 +427,8 @@ module.exports = {
       '16': '4rem',
       '24': '6rem',
       '32': '8rem',
+      '34.5': '9.5rem',
+      '36': '10rem',
       '48': '12rem',
       '64': '16rem',
       '1/2': '50%',

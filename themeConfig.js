@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 15:18:30
  * @LastEditors: zy
- * @LastEditTime: 2019-10-03 15:18:30
+ * @LastEditTime: 2019-10-15 10:49:37
  */
 /* =========================================================================================
   File Name: themeConfig.js
@@ -19,7 +19,7 @@ import Vue from 'vue'
 import Vuesax from 'vuesax'
 
 let colors = {
-  primary: '#7367F0',
+  primary: '#00A3E3', // 7367F0
   success: '#28C76F',
   danger: '#EA5455',
   warning: '#FF9F43',

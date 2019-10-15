@@ -1,3 +1,10 @@
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:44:02
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-03 14:44:02
+ -->
 <template>
   <div class="relative">
     <div class="vx-navbar-wrapper nav-menu-wrapper">
@@ -77,7 +84,7 @@ export default {
       if (group.submenu) {
         group.submenu.forEach((item) => {
           if (active) return true
-          if ((path == item.url || routeParent == item.slug) && item.url) { active = true } else if (item.submenu) { this.checkGrpChildrenActive(item) }
+          if ((path === item.url || routeParent === item.slug) && item.url) { active = true } else if (item.submenu) { this.checkGrpChildrenActive(item) }
         })
       }
 

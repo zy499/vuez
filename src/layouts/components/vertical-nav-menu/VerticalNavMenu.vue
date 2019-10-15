@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 01:15:51
+ * @LastEditTime: 2019-10-15 14:55:45
  -->
 
 <template>
@@ -28,7 +28,8 @@
 
           <!-- Logo -->
           <router-link tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
-            <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo">
+            <img :src="logo"  alt="logo" class="w-34.5 mr-4" v-if="logo && isMouseEnter || !reduce">
+            <img src="../../../assets/images/logo/logo2.png" alt="logo" class="w-10 mr-4" v-else>
             <span class="vx-logo-text" v-show="isMouseEnter || !reduce" v-if="title">{{ title }}</span>
           </router-link>
           <!-- /Logo -->

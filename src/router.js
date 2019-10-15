@@ -3,18 +3,22 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 15:32:09
+ * @LastEditTime: 2019-10-15 16:15:13
  */
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
 import { clearLoginInfo } from '@/utils'
 Vue.use(Router)
+NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
+NProgress.set(0.4)
 
 const router = new Router({
   mode: 'hash',
   base: process.env.BASE_URL,
-  scrollBehavior() {
+  scrollBehavior () {
     return { x: 0, y: 0 }
   },
   routes: [
@@ -43,8 +47,16 @@ const router = new Router({
           path: '/page3',
           name: 'page-3',
           component: null,
-          meta:{
-            iframeUrl:'http://nccc.cdmetrokyb.com'
+          meta: {
+            iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage'
+          }
+        },
+        {
+          path: '/page4',
+          name: 'page-4',
+          component: null,
+          meta: {
+            iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
           }
         }
       ]
@@ -78,7 +90,8 @@ const router = new Router({
     }
   ]
 })
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  NProgress.start()
   if (to.name !== 'login') {
     let token = Vue.cookie.get('token')
     if (!token || !/\S/.test(token)) {
@@ -89,6 +102,7 @@ router.beforeEach((to, from, next) => {
   next()
 })
 router.afterEach(() => {
+  NProgress.done()
   // Remove initial loading
   const appLoading = document.getElementById('loading-bg')
   if (appLoading) {

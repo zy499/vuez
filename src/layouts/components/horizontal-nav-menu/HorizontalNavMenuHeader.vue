@@ -1,3 +1,10 @@
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:44:00
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-15 14:51:44
+ -->
 <template>
   <div
     class="nav-header py-4"
@@ -83,7 +90,7 @@ export default {
         if (item.submenu) {
           if (this.checkGrpChildrenActive(item)) { active = true }
         } else if (item.url) {
-          if (path == item.url || routeParent == item.slug) { active = true }
+          if (path === item.url || routeParent === item.slug) { active = true }
         }
       })
 
@@ -110,7 +117,8 @@ export default {
 
       if (group.submenu) {
         group.submenu.forEach((item) => {
-          if ((path == item.url || routeParent == item.slug) && item.slug) { active = true } else if (item.submenu) { this.checkGrpChildrenActive(item) ? active = true : null }
+          // eslint-disable-next-line no-unused-expressions
+          if ((path === item.url || routeParent === item.slug) && item.slug) { active = true } else if (item.submenu) { this.checkGrpChildrenActive(item) ? active = true : null }
         })
       }
 

@@ -3,12 +3,12 @@
  * @Author: zy
  * @Date: 2019-10-03 14:42:12
  * @LastEditors: zy
- * @LastEditTime: 2019-10-03 14:42:12
+ * @LastEditTime: 2019-10-14 10:46:26
  -->
 <template>
-	<div id="app">
-		<router-view></router-view>
-	</div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -22,15 +22,15 @@ export default {
   },
   methods: {
     toggleClassInBody (className) {
-      if (className == 'dark') {
-        if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark')
+      if (className === 'dark') {
+        if (document.body.className.match('theme-semi-dark')) { document.body.classList.remove('theme-semi-dark') }
         document.body.classList.add('theme-dark')
-      } else if (className == 'semi-dark') {
-        if (document.body.className.match('theme-dark')) document.body.classList.remove('theme-dark')
+      } else if (className === 'semi-dark') {
+        if (document.body.className.match('theme-dark')) { document.body.classList.remove('theme-dark') }
         document.body.classList.add('theme-semi-dark')
       } else {
-        if (document.body.className.match('theme-dark')) document.body.classList.remove('theme-dark')
-        if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark')
+        if (document.body.className.match('theme-dark')) { document.body.classList.remove('theme-dark') }
+        if (document.body.className.match('theme-semi-dark')) { document.body.classList.remove('theme-semi-dark') }
       }
     },
     handleWindowResize () {
@@ -53,5 +53,4 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   }
 }
-
 </script>

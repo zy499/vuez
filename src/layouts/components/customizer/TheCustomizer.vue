@@ -1,12 +1,10 @@
-<!-- =========================================================================================
-  File Name: TheCustomizer.vue
-  Description: Template Customizer
-  Component Name: TheCustomizer
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-15 10:49:46
+ -->
 
 <template>
   <div id="theme-customizer">
@@ -236,14 +234,16 @@ export default {
         maxScrollbarLength: 60,
         wheelSpeed: 0.60
       },
-      themeColors: ['#7367F0', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E']
+      themeColors: ['#00A3E3', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E']
     }
   },
   watch: {
     layoutType (val) {
       // Reset unsupported options
       if (val === 'horizontal') {
+        // eslint-disable-next-line no-unused-expressions
         this.themeMode === 'semi-dark' ? this.themeMode = 'light' : null
+        // eslint-disable-next-line no-unused-expressions
         this.navbarType === 'hidden' ? this.navbarTypeLocal = 'floating' : null
         this.$emit('updateNavbarColor', '#fff')
       }
@@ -261,15 +261,15 @@ export default {
     navbarColorOptionClasses () {
       return (color) => {
         let classes = {}
-        if (color == this.navbarColorLocal) classes['shadow-outline'] = true
-        if (this.navbarTypeLocal == 'static') classes['cursor-not-allowed'] = true
+        if (color === this.navbarColorLocal) classes['shadow-outline'] = true
+        if (this.navbarTypeLocal === 'static') classes['cursor-not-allowed'] = true
         return classes
       }
     },
     navbarColorLocal: {
       get () { return this.navbarColor },
       set (val) {
-        if (this.navbarType == 'static') return
+        if (this.navbarType === 'static') return
         this.$emit('updateNavbarColor', val)
       }
     },

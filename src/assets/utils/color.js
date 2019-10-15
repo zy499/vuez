@@ -1,3 +1,11 @@
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-03 14:16:32
+ */
+/* eslint-disable eqeqeq */
 export default {
   darken (color, percent) {
     var f = color.split(','); var t = percent < 0 ? 0 : 255; var p = percent < 0 ? percent * -1 : percent; var R = parseInt(f[0].slice(4)); var G = parseInt(f[1]); var B = parseInt(f[2])

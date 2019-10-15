@@ -42,10 +42,6 @@
       }
 
       &:hover:not(.vs-sidebar-reduceNotRebound):not(.vs-sidebar-reduceNotHoverExpand){
-        .vs-sidebar--items {
-        }
-
-
         .vs-sidebar-group .group-header i{
           display: block;
         }
@@ -67,7 +63,7 @@
 
     .feather-icon {
     	svg {
-    		color: #7367F0;
+    		color: $primary;
     	}
     }
   }

@@ -1,3 +1,11 @@
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:54:08
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-03 14:54:08
+ */
+/* eslint-disable import/no-duplicates */
 /* =========================================================================================
   File Name: state.js
   Description: Vuex Store - state

@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 15:00:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 15:23:39
+ * @LastEditTime: 2019-10-12 10:38:30
  -->
 
 <template>
@@ -60,15 +60,15 @@ import md5 from 'js-md5'
 import { Base64 } from 'js-base64'
 import { login } from '@/api/user'
 export default {
-  data() {
+  data () {
     return {
-      userName: "",
-      password: ""
-    };
+      userName: '',
+      password: ''
+    }
   },
   methods: {
-    handleLogin() {
-      this.$vs.loading();
+    handleLogin () {
+      this.$vs.loading()
       // this.$http({
       //   url: this.$http.adornUrl("sys/login"),
       //   method: "post",
@@ -90,21 +90,21 @@ export default {
       //   }
       // });
       login({
-            account: this.userName,
-            password: Base64.encode(
-              md5(this.password) + ';' + new Date()
-            )
-            // password: this.dataForm.password
-          }).then(({ data }) => {
-            this.$vs.loading.close();
-            this.$cookie.set('token', data.token)
-            this.$router.replace({ name: 'home' })
-          }).catch(err => {
-            this.$vs.loading.close();
-          })
+        account: this.userName,
+        password: Base64.encode(
+          md5(this.password) + ';' + new Date()
+        )
+      }).then(({ data }) => {
+        this.$vs.loading.close()
+        this.$cookie.set('token', data.token)
+        this.$router.replace({ name: 'home' })
+      }).catch(err => {
+        console.log(err)
+        this.$vs.loading.close()
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

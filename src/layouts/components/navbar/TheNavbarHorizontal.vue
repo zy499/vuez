@@ -1,13 +1,10 @@
-<!-- =========================================================================================
-  File Name: TheNavbar.vue
-  Description: Navbar component
-  Component Name: TheNavbar
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
+<!--
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:56:50
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-15 14:53:16
+ -->
 <template>
 <div class="relative">
   <div class="vx-navbar-wrapper navbar-full p-0">
@@ -51,8 +48,8 @@
       </template>
 
       <router-link tag="div" to="/" class="vx-logo cursor-pointer mx-auto flex items-center">
-        <img :src="logo" alt="logo" class="w-10 mr-4" v-if="logo">
-        <span class="vx-logo-text">Vuexy</span>
+        <img :src="logo" alt="logo" class="w-36 mr-4" v-if="logo">
+        <!-- <span class="vx-logo-text">Vuexy</span> -->
       </router-link>
 
       <!-- SEARCHBAR -->
@@ -242,6 +239,7 @@ export default {
         }
       }
 
+      // eslint-disable-next-line no-unused-expressions
       this.isThemedark === 'dark' ? color === '#fff' ? color = '#10163a' : color = '#262c49' : null
 
       return color

@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:43:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 14:56:55
+ * @LastEditTime: 2019-10-15 15:58:24
  */
 export default [
   {
@@ -23,6 +23,12 @@ export default [
     url: '/page3',
     name: 'Page 3',
     slug: 'page3',
+    icon: 'FileIcon'
+  },
+  {
+    url: '/page4',
+    name: 'Page 4',
+    slug: 'page4',
     icon: 'FileIcon'
   }
 ]
