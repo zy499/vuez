@@ -3,11 +3,10 @@
  * @Author: zy
  * @Date: 2019-08-27 09:10:58
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 00:56:56
+ * @LastEditTime: 2019-10-16 17:53:03
  */
 import Vue from 'vue'
-// import router from '@/router'
-import store from '@/store/store.js'
+// import store from '@/store/store.js'
 
 /**
  * 获取uuid
@@ -60,8 +59,6 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
  */
 export function clearLoginInfo () {
   Vue.cookie.delete('token')
-  sessionStorage.removeItem('menuList')
-  // sessionStorage.removeItem('permissions')
 }
 
 /**

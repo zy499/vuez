@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-15 16:41:11
+ * @LastEditTime: 2019-10-16 16:49:40
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -137,7 +137,7 @@
 import { isURL } from '@/utils/validate'
 import BackToTop from 'vue-backtotop'
 import HNavMenu from '@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue'
-import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
+// import navMenuItems from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
 import TheCustomizer from '@/layouts/components/customizer/TheCustomizer.vue'
 import TheNavbarHorizontal from '@/layouts/components/navbar/TheNavbarHorizontal.vue'
 import TheNavbarVertical from '@/layouts/components/navbar/TheNavbarVertical.vue'
@@ -165,7 +165,7 @@ export default {
       isNavbarDark: false,
       navbarColor: themeConfig.navbarColor || '#fff',
       navbarType: themeConfig.navbarType || 'floating',
-      navMenuItems: navMenuItems,
+      navMenuItems: [],
       navMenuLogo: require('@/assets/images/logo/logo.png'),
       routerTransition: themeConfig.routerTransition || 'none',
       routeTitle: this.$route.meta.pageTitle
@@ -283,7 +283,7 @@ export default {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
-    // this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
+    this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
   }
 }
 
@@ -296,7 +296,7 @@ export default {
       height: 5px;
   }
   ::-webkit-scrollbar-thumb{
-      background-color: red;
+      background-color: rgb(204, 207, 209);
       -webkit-border-radius: 5px;
       border-radius: 5px;
   }

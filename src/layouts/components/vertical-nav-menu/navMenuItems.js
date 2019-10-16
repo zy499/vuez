@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:43:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-15 15:58:24
+ * @LastEditTime: 2019-10-16 16:29:26
  */
 export default [
   {
@@ -20,7 +20,7 @@ export default [
     isDisabled: true
   },
   {
-    url: '/page3',
+    url: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage',
     name: 'Page 3',
     slug: 'page3',
     icon: 'FileIcon'

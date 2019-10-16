@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:56:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-15 14:18:54
+ * @LastEditTime: 2019-10-16 17:50:03
  -->
 
 <template>
@@ -248,6 +248,8 @@
 </template>
 
 <script>
+import { clearLoginInfo } from '@/utils'
+import { loginOut } from '@/api/user'
 import VxAutoSuggest from '@/components/vx-auto-suggest/VxAutoSuggest.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import draggable from 'vuedraggable'
@@ -435,7 +437,22 @@ export default {
     },
     logout () {
       // This is just for demo Purpose. If user clicks on logout -> redirect
-      this.$router.push('/pages/login').catch(() => {})
+      // this.$router.push('/pages/login').catch(() => {})
+      this.$vs.dialog({
+        type:'confirm',
+        color:'warning',
+        title: `您正在退出!`,
+        text: '您确认要退出吗?',
+        accept:this.asyncOut
+      })
+    },
+    async asyncOut () {
+      await loginOut().then(({data})=>{
+        if(data.code === 0) {
+          clearLoginInfo()
+          this.$router.push({ name: 'login' })
+        }
+      })
     },
     outside: function () {
       this.showBookmarkPagesDropdown = false
