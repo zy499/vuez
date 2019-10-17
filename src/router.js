@@ -3,12 +3,12 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 17:41:23
+ * @LastEditTime: 2019-10-17 20:25:02
  */
 
 import Vue from 'vue'
 import Router from 'vue-router'
-// import http from '@/utils/httpRequest'
+import http from '@/utils/httpRequest'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { clearLoginInfo } from '@/utils'
@@ -61,6 +61,11 @@ const router = new Router({
           meta: {
             iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
           }
+        },
+        {
+          path: '/page4',
+          name: 'page4',
+          component: () => import('./views/Page2.vue')
         }
       ]
     },
@@ -69,7 +74,7 @@ const router = new Router({
       component: () => import('@/layouts/full-page/FullPage.vue'),
       children: [
         {
-          path: '/pages/login',
+          path: '/login',
           name: 'login',
           component: () => import('@/views/pages/Login.vue')
         },
@@ -89,48 +94,69 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  let token = Vue.cookie.get('token')
-  if (!token || !/\S/.test(token)) {
-    if (to.name !== 'login') {
+  if (to.path === '/login') {
+    next()
+  }else{
+    let token = Vue.cookie.get('token') 
+    if (!token || !/\S/.test(token)) {
       clearLoginInfo()
-      next({ name: 'login' })
-    }
-  } else {
-    debugger
-    if (JSON.parse(sessionStorage.getItem('menuList')) && JSON.parse(sessionStorage.getItem('menuList').length) > 1) {
-      let menuList = JSON.parse(sessionStorage.getItem('menuList'))
-      // let temp = []
-      if (to.path === '/') {
-        next()
-      }
-      for (let i = 0; i < menuList.length; i++) {
-        if (menuList[i].submenu && menuList[i].submenu.length > 1) {
-          const submenu = menuList[i].submenu
-          for(let x=0;x<submenu.length;x++) {
-            if (to.path !== submenu[x].url) {
-              next({ name: 'page-error-404'})
-              break
-            } else {
-              next()
-              break
-            }
+      router.push({ name: 'login' })
+    } else {
+      if(to.path !== '/' && to.path !== '/pages/error-404') {
+        if(JSON.parse(sessionStorage.getItem('menuList')) && JSON.parse(sessionStorage.getItem('menuList')).length > 0) {
+          if(!isAuthMenu(to, JSON.parse(sessionStorage.getItem('menuList')))) {
+            next({ name: 'page-error-404'})
+          }else{
+            next()
           }
         } else {
-          if (to.path !== menuList[i].url) {
-            next({ name: 'page-error-404'})
-            break
-          } else {
-            next()
-            break
-          }
+          http({
+            url: http.adornUrl('sys/menuList'),
+            method: 'get',
+            params: http.adornParams()
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
+              next()
+              // sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
+            } else {
+              sessionStorage.setItem('menuList', '[]')
+              next()
+              // sessionStorage.setItem('permissions', '[]')
+            }
+          }).catch((e) => {
+            console.log(`%c${e} 请求菜单列表和权限失败，跳转至登录页！！`, 'color:blue')
+            router.push({ name: 'login' })
+          })
         }
+      } else {
+        next()
       }
-    }else {
-      next()
     }
   }
-  // next()
 })
+/**
+ * 是否有路由权限
+ * @param {*} to 当前路由
+ * @param {*} menuList 路由表
+ */
+function isAuthMenu (to, menuList) {
+  let result = false
+  for(let i=0;i < menuList.length; i++) {
+    if (menuList[i].submenu && menuList[i].submenu.length > 0) {
+      for (let a=0; a < menuList[i].submenu.length; a++) {
+        if(to.path === menuList[i].submenu[a].url) {
+          result = true
+        }
+      }
+    }else{
+      if(to.path === menuList[i].url){
+        result = true
+      }
+    }
+  }
+  return result
+}
 router.afterEach(() => {
   NProgress.done()
   // Remove initial loading

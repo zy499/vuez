@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-08-29 10:26:16
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 16:10:11
+ * @LastEditTime: 2019-10-17 20:28:57
  */
 import Vue from 'vue'
 import axios from 'axios'
@@ -112,7 +112,8 @@ http.interceptors.response.use(response => {
  */
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
-  return (process.env.NODE_ENV !== 'production' ? '/api/' : window.SITE_CONFIG.baseUrl) + actionName
+  // return (process.env.NODE_ENV !== 'production' ? '/api/' : window.SITE_CONFIG.baseUrl) + actionName
+  return '/api/' + actionName
   // return 'http://10.253.100.13:31503/nccc/' + actionName
 }
 

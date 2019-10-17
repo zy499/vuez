@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:52:12
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 16:07:07
+ * @LastEditTime: 2019-10-17 20:30:12
  */
 
 import Vue from 'vue'
@@ -50,9 +50,10 @@ Vue.use(Vuesax)
 Vue.use(VueHammer)
 Vue.use(VueTour)
 // 非生产环境, 适配mockjs模拟数据                 // api: https://github.com/nuysoft/Mock
-if (process.env.NODE_ENV !== 'production') {
-  require('@/mock')
-}
+// if (process.env.NODE_ENV !== 'production') {
+  
+// }
+require('@/mock')
 require('vue-tour/dist/vue-tour.css')
 // Feather font icon
 require('./assets/css/iconfont.css')

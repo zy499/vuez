@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-08-27 09:10:58
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 17:53:03
+ * @LastEditTime: 2019-10-17 19:43:08
  */
 import Vue from 'vue'
 // import store from '@/store/store.js'
@@ -59,6 +59,7 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
  */
 export function clearLoginInfo () {
   Vue.cookie.delete('token')
+  sessionStorage.removeItem('menuList')
 }
 
 /**
