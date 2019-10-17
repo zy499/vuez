@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 16:36:32
+ * @LastEditTime: 2019-10-17 22:18:23
  */
 import Mock from 'mockjs'
 
@@ -47,7 +47,6 @@ export function menuList() {
               url: '/dashboard/home',
               name: 'Home',
               slug: 'dashboard-home',
-              icon: 'HomeIcon',
               iframeUrl: ''
             }
           ]
@@ -56,7 +55,7 @@ export function menuList() {
           url: '/page',
           name: 'Page',
           slug: 'page',
-          icon: 'FileIcon',
+          icon: 'ActivityIcon',
           isDisabled: true,
           iframeUrl: ''
         },
@@ -64,14 +63,14 @@ export function menuList() {
           url: '/page2',
           name: '客流预警',
           slug: 'page2',
-          icon: 'FileIcon',
+          icon: 'AirplayIcon',
           iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage'
         },
         {
           url: '/page3',
           name: '车站详情',
           slug: 'page3',
-          icon: 'FileIcon',
+          icon: 'LifeBuoyIcon',
           iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
         }
       ]

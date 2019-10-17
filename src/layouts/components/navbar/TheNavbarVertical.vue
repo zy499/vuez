@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:56:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 17:50:03
+ * @LastEditTime: 2019-10-17 21:59:11
  -->
 
 <template>
@@ -439,10 +439,11 @@ export default {
       // This is just for demo Purpose. If user clicks on logout -> redirect
       // this.$router.push('/pages/login').catch(() => {})
       this.$vs.dialog({
-        type:'confirm',
+        // type:'confirm',
         color:'warning',
-        title: `您正在退出!`,
+        title: `对话框-警告`,
         text: '您确认要退出吗?',
+        acceptText: '确认',
         accept:this.asyncOut
       })
     },
