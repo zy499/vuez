@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 16:49:40
+ * @LastEditTime: 2019-10-17 17:00:17
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -283,7 +283,21 @@ export default {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
-    this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
+    this.$http({
+      url: this.$http.adornUrl('sys/menuList'),
+      method: 'get',
+      params: this.$http.adornParams()
+    }).then(({data}) => {
+      if (data && data.code === 0) {
+        this.navMenuItems = [this.navMenuItems, ...data.menuList]
+        sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
+        // sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
+      } else {
+        sessionStorage.setItem('menuList', '[]')
+        // sessionStorage.setItem('permissions', '[]')
+      }
+    })
+    // this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
   }
 }
 

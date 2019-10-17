@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-16 17:29:16
+ * @LastEditTime: 2019-10-17 16:36:32
  */
 import Mock from 'mockjs'
 
@@ -31,31 +31,46 @@ export function menuList() {
       'code': 0,
       'menuList': [
         {
-          url: '/home',
-          name: 'Home',
-          slug: 'home',
-          icon: 'HomeIcon',
-          iframeUrl: '',
+          url: null,
+          name: "Dashboard",
+          tag: "2",
+          tagColor: "warning",
+          icon: "HomeIcon",
+          submenu: [
+            {
+              url: '/dashboard/analytics',
+              name: 'Analytics',
+              slug: 'dashboard-analytics',
+              iframeUrl: ''
+            },
+            {
+              url: '/dashboard/home',
+              name: 'Home',
+              slug: 'dashboard-home',
+              icon: 'HomeIcon',
+              iframeUrl: ''
+            }
+          ]
         },
         {
-          url: '/page2',
-          name: 'Page2',
-          slug: 'page2',
+          url: '/page',
+          name: 'Page',
+          slug: 'page',
           icon: 'FileIcon',
           isDisabled: true,
           iframeUrl: ''
         },
         {
-          url: '/page3',
-          name: 'Page3',
-          slug: 'page3',
+          url: '/page2',
+          name: '客流预警',
+          slug: 'page2',
           icon: 'FileIcon',
           iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage'
         },
         {
-          url: '/page4',
-          name: 'Page4',
-          slug: 'page4',
+          url: '/page3',
+          name: '车站详情',
+          slug: 'page3',
           icon: 'FileIcon',
           iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
         }
