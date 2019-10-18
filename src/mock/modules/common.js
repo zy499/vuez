@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 22:18:23
+ * @LastEditTime: 2019-10-18 13:23:33
  */
 import Mock from 'mockjs'
 
@@ -41,13 +41,15 @@ export function menuList() {
               url: '/dashboard/analytics',
               name: 'Analytics',
               slug: 'dashboard-analytics',
-              iframeUrl: ''
+              iframeUrl: '',
+              icon: 'HomeIcon'
             },
             {
               url: '/dashboard/home',
               name: 'Home',
               slug: 'dashboard-home',
-              iframeUrl: ''
+              iframeUrl: '',
+              icon: 'FileIcon'
             }
           ]
         },

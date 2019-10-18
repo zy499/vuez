@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 20:25:02
+ * @LastEditTime: 2019-10-18 14:16:38
  */
 
 import Vue from 'vue'
@@ -96,17 +96,17 @@ router.beforeEach((to, from, next) => {
   NProgress.start()
   if (to.path === '/login') {
     next()
-  }else{
-    let token = Vue.cookie.get('token') 
+  } else {
+    let token = Vue.cookie.get('token')
     if (!token || !/\S/.test(token)) {
       clearLoginInfo()
       router.push({ name: 'login' })
     } else {
-      if(to.path !== '/' && to.path !== '/pages/error-404') {
-        if(JSON.parse(sessionStorage.getItem('menuList')) && JSON.parse(sessionStorage.getItem('menuList')).length > 0) {
-          if(!isAuthMenu(to, JSON.parse(sessionStorage.getItem('menuList')))) {
-            next({ name: 'page-error-404'})
-          }else{
+      if (to.path !== '/' && to.path !== '/pages/error-404') {
+        if (JSON.parse(sessionStorage.getItem('menuList')) && JSON.parse(sessionStorage.getItem('menuList')).length > 0) {
+          if (!isAuthMenu(to, JSON.parse(sessionStorage.getItem('menuList')))) {
+            next({ name: 'page-error-404' })
+          } else {
             next()
           }
         } else {
@@ -114,9 +114,14 @@ router.beforeEach((to, from, next) => {
             url: http.adornUrl('sys/menuList'),
             method: 'get',
             params: http.adornParams()
-          }).then(({data}) => {
+          }).then(({ data }) => {
             if (data && data.code === 0) {
               sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
+              if(!JSON.parse(localStorage.getItem('navBarSearchAndPinList'))) {
+                if (data.menuList && data.menuList.length > 0) {
+                  localStorage.setItem('navBarSearchAndPinList', JSON.stringify(setNavBarSearchAndPinList(data.menuList)))
+                }
+              }
               next()
               // sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
             } else {
@@ -140,22 +145,62 @@ router.beforeEach((to, from, next) => {
  * @param {*} to 当前路由
  * @param {*} menuList 路由表
  */
-function isAuthMenu (to, menuList) {
+function isAuthMenu(to, menuList) {
   let result = false
-  for(let i=0;i < menuList.length; i++) {
+  for (let i = 0; i < menuList.length; i++) {
     if (menuList[i].submenu && menuList[i].submenu.length > 0) {
-      for (let a=0; a < menuList[i].submenu.length; a++) {
-        if(to.path === menuList[i].submenu[a].url) {
+      for (let a = 0; a < menuList[i].submenu.length; a++) {
+        if (to.path === menuList[i].submenu[a].url) {
           result = true
         }
       }
-    }else{
-      if(to.path === menuList[i].url){
+    } else {
+      if (to.path === menuList[i].url) {
         result = true
       }
     }
   }
   return result
+}
+
+function setNavBarSearchAndPinList (menuList = []) {
+  let navBarSearchAndPinList = {
+    actionIcon: 'StarIcon',
+    highlightColor: 'warning',
+    data: []
+  }
+  if (menuList && menuList.length > 0) {
+    const menuArr = menuList 
+    let index = 0
+    for(let i=0;i < menuArr.length; i++){
+      if (menuArr[i].url && !menuArr[i].isDisabled) {
+        index++
+        navBarSearchAndPinList.data.push({
+          index : index,
+          label: menuArr[i].name,
+          url: menuArr[i].url,
+          labelIcon: menuArr[i].icon,
+          highlightAction: false
+        })
+      }
+      if (menuArr[i].submenu && menuArr[i].submenu.length > 0) {
+        const subMenuArr = menuArr[i].submenu
+        for(let c = 0; c < subMenuArr.length; c++) {
+          if (subMenuArr[c].url && !subMenuArr[c].isDisabled) {
+            index++
+            navBarSearchAndPinList.data.push({
+              index : index,
+              label: subMenuArr[c].name,
+              url: subMenuArr[c].url,
+              labelIcon: subMenuArr[c].icon,
+              highlightAction: false
+            })
+          }
+        }
+      }
+    }
+    return navBarSearchAndPinList
+  }
 }
 router.afterEach(() => {
   NProgress.done()

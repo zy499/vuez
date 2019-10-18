@@ -3,10 +3,9 @@
  * @Author: zy
  * @Date: 2019-08-27 09:10:58
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 19:43:08
+ * @LastEditTime: 2019-10-18 13:53:56
  */
 import Vue from 'vue'
-// import store from '@/store/store.js'
 
 /**
  * 获取uuid
@@ -59,7 +58,9 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
  */
 export function clearLoginInfo () {
   Vue.cookie.delete('token')
+  // store.commit('resetStore')
   sessionStorage.removeItem('menuList')
+  // localStorage.removeItem('navBarSearchAndPinList')
 }
 
 /**

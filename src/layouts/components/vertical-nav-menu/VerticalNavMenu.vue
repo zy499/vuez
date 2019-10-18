@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-15 14:55:45
+ * @LastEditTime: 2019-10-18 14:34:03
  -->
 
 <template>
@@ -173,7 +173,6 @@ export default {
           }
         }
       }
-
       return clone
     },
     isVerticalNavMenuActive: {

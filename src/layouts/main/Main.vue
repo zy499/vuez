@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 20:12:00
+ * @LastEditTime: 2019-10-18 14:35:15
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -283,7 +283,10 @@ export default {
     const color = this.navbarColor === '#fff' && this.isThemeDark ? '#10163a' : this.navbarColor
     this.updateNavbarColor(color)
     this.setNavMenuVisibility(this.$store.state.mainLayoutType)
-    this.navMenuItems = [this.navMenuItems, ...JSON.parse(sessionStorage.getItem('menuList'))]
+    this.navMenuItems = JSON.parse(sessionStorage.getItem('menuList')) 
+    if(JSON.parse(localStorage.getItem('navBarSearchAndPinList'))){
+      this.$store.commit('UPDATE_NAVBAR_SEARCH', JSON.parse(localStorage.getItem('navBarSearchAndPinList')))
+    }
   }
 }
 

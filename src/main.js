@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:52:12
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 20:30:12
+ * @LastEditTime: 2019-10-18 13:40:32
  */
 
 import Vue from 'vue'
@@ -16,6 +16,7 @@ import 'material-icons/iconfont/material-icons.css' // Material Icons
 import 'vuesax/dist/vuesax.css'
 import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/axios
 import { isAuth } from '@/utils'
+import cloneDeep from 'lodash/cloneDeep'
 // Theme Configurations
 import '../themeConfig.js'
 
@@ -64,6 +65,8 @@ require('./assets/css/iconfont.css')
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.prototype.isAuth = isAuth // 权限方法
 Vue.prototype.$bus = new Vue() // 中央
+// 保存整站vuex本地储存初始状态
+window.storeState = cloneDeep(store.state)
 Vue.config.productionTip = false
 
 new Vue({

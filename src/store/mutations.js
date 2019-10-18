@@ -1,12 +1,10 @@
-/* =========================================================================================
-  File Name: mutations.js
-  Description: Vuex Store - mutations
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== */
-
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-17 15:23:22
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-18 14:03:14
+ */
 const mutations = {
 
   // /////////////////////////////////////////////
@@ -32,16 +30,25 @@ const mutations = {
   },
 
   // VxAutoSuggest
-
+  UPDATE_NAVBAR_SEARCH (state, val) {
+    state.navbarSearchAndPinList = val
+    state.starredPages = val.data.filter((page) => page.highlightAction)
+  },
   UPDATE_STARRED_PAGE (state, payload) {
     // find item index in search list state
     const index = state.navbarSearchAndPinList.data.findIndex((item) => item.index == payload.index)
 
     // update the main list
     state.navbarSearchAndPinList.data[index].highlightAction = payload.val
-
+    if (JSON.parse(localStorage.getItem('navBarSearchAndPinList'))) {
+      let newNavBarSearchAndPinList = JSON.parse(localStorage.getItem('navBarSearchAndPinList'))
+      newNavBarSearchAndPinList.data[index].highlightAction = payload.val
+      // console.log(newNavBarSearchAndPinList)
+      localStorage.setItem('navBarSearchAndPinList', JSON.stringify(newNavBarSearchAndPinList))
+    }
     // if val is true add it to starred else remove
     if (payload.val) {
+      
       state.starredPages.push(state.navbarSearchAndPinList.data[index])
     } else {
       // find item index from starred pages

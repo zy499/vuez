@@ -1,12 +1,10 @@
-/* =========================================================================================
-  File Name: actions.js
-  Description: Vuex Store - actions
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== */
-
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:41:34
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-18 13:05:55
+ */
 const actions = {
 
   // /////////////////////////////////////////////

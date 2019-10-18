@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:42:12
  * @LastEditors: zy
- * @LastEditTime: 2019-10-14 10:46:26
+ * @LastEditTime: 2019-10-18 16:42:10
  -->
 <template>
   <div id="app">
@@ -13,7 +13,7 @@
 
 <script>
 import themeConfig from '@/../themeConfig.js'
-
+// import WarterMark from '@/utils/warterMark'
 export default {
   watch: {
     '$store.state.theme' (val) {
@@ -41,6 +41,7 @@ export default {
     }
   },
   mounted () {
+    // WarterMark.set('成都地铁')
     this.toggleClassInBody(themeConfig.theme)
     this.$store.commit('UPDATE_WINDOW_WIDTH', window.innerWidth)
   },

@@ -8,7 +8,7 @@
 .loading-logo{
   position: absolute;
   left: calc(50% - 30px);
-  top: 45%;
+  top: 44%;
 }
 .loading-logo > img {
   width: 55px;
