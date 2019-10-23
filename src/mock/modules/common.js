@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-22 16:15:28
+ * @LastEditTime: 2019-10-23 13:45:50
  */
 import Mock from 'mockjs'
 
@@ -32,48 +32,89 @@ export function menuList() {
       'menuList': [
         {
           url: null,
-          name: "Dashboard",
+          name: "客流监测与预警",
           tag: "2",
           tagColor: "warning",
           icon: "HomeIcon",
           submenu: [
             {
-              url: '/dashboard/analytics',
-              name: 'Analytics',
-              slug: 'dashboard-analytics',
-              iframeUrl: '',
+              url: '/passengerFlowWaringHomepage',
+              name: '主页',
+              slug: 'passengerFlowWaringHomepage',
+              iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage',
               icon: 'HomeIcon'
             },
             {
-              url: '/dashboard/home',
-              name: 'Home',
-              slug: 'dashboard-home',
-              iframeUrl: '',
-              icon: 'FileIcon'
+              url: '/stationDetails',
+              name: '车站详情',
+              slug: 'stationDetails',
+              iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails',
+              icon: 'LifeBuoyIcon'
             }
           ]
         },
         {
-          url: '/page',
-          name: 'Page',
-          slug: 'page',
-          icon: 'ActivityIcon',
-          isDisabled: true,
-          iframeUrl: ''
+          url: null,
+          name: "客流时空状态分布",
+          icon: "MapIcon",
+          submenu: [
+            {
+              url: '/network',
+              name: '线网分布',
+              slug: 'network',
+              iframeUrl: 'http://nccc.cdmetrokyb.com/#/network',
+              icon: 'LifeIcon'
+            },
+            {
+              url: '/od',
+              name: 'OD分布',
+              slug: 'od',
+              iframeUrl: 'http://nccc.cdmetrokyb.com/#/od',
+              icon: 'LifeIcon'
+            }
+          ]
         },
         {
-          url: '/page2',
-          name: '客流预警',
-          slug: 'page2',
-          icon: 'AirplayIcon',
-          iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage'
+          url: null,
+          name: "报表定制与展现",
+          icon: "BarChart2Icon",
+          submenu: [
+            {
+              url: 'http://10.76.230.81:9881/#/metro/analysis',
+              name: '统计分析',
+              slug: 'external',
+              target: '_blank',
+              icon: 'LifeIcon'
+            },
+            {
+              url: 'http://10.76.230.81:9881/#/metro/compare',
+              name: '数据对比',
+              slug: 'external',
+              target: '_blank',
+              icon: 'LifeIcon'
+            },
+            {
+              url: 'http://10.76.230.81:9881/#/metro/report',
+              name: '固定报表',
+              slug: 'external',
+              target: '_blank',
+              icon: 'LifeIcon'
+            },
+            {
+              url: 'http://10.76.230.81:9881/#/metro/mopes',
+              name: 'MOPES',
+              slug: 'external',
+              target: '_blank',
+              icon: 'LifeIcon'
+            },
+          ]
         },
         {
-          url: '/page3',
-          name: '车站详情',
-          slug: 'page3',
-          icon: 'LifeBuoyIcon',
-          iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
+          url: "/networkComparison",
+          name: "线网运力运量对比分析",
+          slug: "networkComparison",
+          iframeUrl: 'http://nccc.cdmetrokyb.com/#/networkComparison',
+          icon: 'BarChartIcon'
         }
       ]
     }
@@ -87,7 +128,7 @@ export function logout() {
     type: 'post',
     data: {
       'msg': 'success',
-      'code': '00000001'
+      'code': '00000000'
     }
   }
 }

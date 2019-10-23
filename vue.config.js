@@ -3,15 +3,15 @@
  * @Author: zy
  * @Date: 2019-10-03 14:16:32
  * @LastEditors: zy
- * @LastEditTime: 2019-10-22 15:46:55
+ * @LastEditTime: 2019-10-23 15:41:43
  */
 const path = require('path')
-console.log(process.env.NODE_ENV)
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
+  // publicPath: '/',
   transpileDependencies: [
     'vue-echarts',
     'resize-detector'
@@ -39,14 +39,15 @@ module.exports = {
     //   warnings: false,
     //   errors: true
     // },
-    proxy: {
-      '/proxyApi': {
-        target: `http://10.253.100.13:31503/nccc/`,
+    proxy: process.env.NODE_ENV === 'development' ? {
+      '/api': {
+        // target: 'http://10.253.100.13:31503/nccc/',
+        target: 'http://192.168.1.119:9002/nccc/',
         changeOrigin: true,
         pathRewrite: {
-          '^proxyApi': ''
+          '^/api': '/'
         }
       }
-    }
+    } : {}
   }
 }

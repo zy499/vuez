@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:50:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-18 14:35:15
+ * @LastEditTime: 2019-10-23 13:46:07
  -->
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'app-page': isAppPage}]">
@@ -120,8 +120,9 @@
                     width="100%"
                     height="100%"
                     frameborder="0"
-                    scrolling="auto"
+                    scrolling="yes"
                     ref="myIframe"
+                    allowtransparency="yes"
                   ></iframe>
               </transition>
             </div>
@@ -291,28 +292,3 @@ export default {
 }
 
 </script>
-
-<style>
-  /*- scrollbar -*/
-  ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-  }
-  ::-webkit-scrollbar-thumb{
-      background-color: rgb(204, 207, 209);
-      -webkit-border-radius: 5px;
-      border-radius: 5px;
-  }
-  ::-webkit-scrollbar-thumb:vertical:hover{
-      background-color: #666;
-  }
-  ::-webkit-scrollbar-thumb:vertical:active{
-      background-color: #333;
-  }
-  ::-webkit-scrollbar-button{
-      display: none;
-  }
-  ::-webkit-scrollbar-track{
-      background-color: #f1f1f1;
-  }
-</style>

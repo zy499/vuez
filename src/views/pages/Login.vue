@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 15:00:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-22 16:14:02
+ * @LastEditTime: 2019-10-23 15:48:54
  -->
 
 <template>
@@ -96,8 +96,8 @@ export default {
         )
       }).then(({ data }) => {
         this.$vs.loading.close()
-        this.$cookie.set('token', data.token)
-        this.$router.replace({ name: 'dashboard-analytics' })
+        this.$cookie.set('token', data.data.token)
+        this.$router.replace({ name: 'passengerFlowWaringHomepage' })
       }).catch(err => {
          this.$vs.notify({ title: 'Danger', text: err.data.msg, color: 'danger' })
         // console.log(err)

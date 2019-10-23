@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-22 16:18:53
+ * @LastEditTime: 2019-10-23 16:08:59
  */
 
 import Vue from 'vue'
@@ -29,43 +29,47 @@ const router = new Router({
       children: [
         {
           path: '/',
-          redirect: '/dashboard/analytics'
+          redirect: 'passengerFlowWaringHomepage'
         },
         {
-          path: '/dashboard/analytics',
-          name: 'dashboard-analytics',
-          component: () => import('./views/DashboardAnalytics.vue'),
-        },
-        {
-          path: '/dashboard/home',
-          name: 'dashboard-home',
-          component: () => import('./views/Home.vue'),
-        },
-        {
-          path: '/page',
-          name: 'page',
-          component: () => import('./views/Page2.vue')
-        },
-        {
-          path: '/page2',
-          name: 'page2',
+          path: '/passengerFlowWaringHomepage',
+          name: 'passengerFlowWaringHomepage',
           component: null,
           meta: {
-            iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage'
+            iframeUrl: 'http://192.168.1.124:8001/#/passengerFlowWaringHomepage'
           }
         },
         {
-          path: '/page3',
-          name: 'page3',
+          path: '/stationDetails',
+          name: 'stationDetails',
           component: null,
           meta: {
-            iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails'
+            iframeUrl: 'http://192.168.1.124:8001/#/stationDetails'
           }
         },
         {
-          path: '/page4',
-          name: 'page4',
-          component: () => import('./views/Page2.vue')
+          path: '/network',
+          name: 'network',
+          component: null,
+          meta: {
+            iframeUrl: 'http://192.168.1.124:8001/#/network'
+          }
+        },
+        {
+          path: '/od',
+          name: 'od',
+          component: null,
+          meta: {
+            iframeUrl: 'http://192.168.1.124:8001/#/od'
+          }
+        },
+        {
+          path: '/networkComparison',
+          name: 'networkComparison',
+          component: null,
+          meta: {
+            iframeUrl: 'http://192.168.1.124:8001/#/networkComparison'
+          }
         }
       ]
     },
@@ -111,15 +115,16 @@ router.beforeEach((to, from, next) => {
           }
         } else {
           http({
-            url: http.adornUrl('sys/menuList'),
+            // url: http.adornUrl('sys/menuList'),
+            url: http.adornUrl('basic/authority/module/getByUserId/1'),
             method: 'get',
             params: http.adornParams()
           }).then(({ data }) => {
-            if (data && data.code === '00000000') {
-              sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
+            if (data.data && data.code === '00000000') {
+              sessionStorage.setItem('menuList', JSON.stringify(data.data || '[]'))
               if(!JSON.parse(localStorage.getItem('navBarSearchAndPinList'))) {
-                if (data.menuList && data.menuList.length > 0) {
-                  localStorage.setItem('navBarSearchAndPinList', JSON.stringify(setNavBarSearchAndPinList(data.menuList)))
+                if (data.data && data.data.length > 0) {
+                  localStorage.setItem('navBarSearchAndPinList', JSON.stringify(setNavBarSearchAndPinList(data.data)))
                 }
               }
               next()
