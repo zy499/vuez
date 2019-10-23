@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 15:00:20
  * @LastEditors: zy
- * @LastEditTime: 2019-10-18 14:18:37
+ * @LastEditTime: 2019-10-22 16:14:02
  -->
 
 <template>
@@ -99,7 +99,8 @@ export default {
         this.$cookie.set('token', data.token)
         this.$router.replace({ name: 'dashboard-analytics' })
       }).catch(err => {
-        console.log(err)
+         this.$vs.notify({ title: 'Danger', text: err.data.msg, color: 'danger' })
+        // console.log(err)
         this.$vs.loading.close()
       })
     }

@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-08-29 10:26:16
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 20:28:57
+ * @LastEditTime: 2019-10-22 16:17:27
  */
 import Vue from 'vue'
 import axios from 'axios'
@@ -40,26 +40,20 @@ http.interceptors.request.use(config => {
  * 响应拦截
  */
 http.interceptors.response.use(response => {
-  return response
-  // NProgress.done()
-  // if (response.status) {
-  // if (response.status === 200) {
-  //   if (response.data && response.data.code === '00000002') { // 00000002 token失效
-  //     clearLoginInfo()
-  //     this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
-  //     setTimeout(() => {
-  //       router.push({ name: 'login' })
-  //     }, 2000)
-  //   } else if (response.data && response.data.code !== '00000000') {
-  //     console.log('err:', response.data.msg)
-  //     return Promise.reject(response)
-  //   } else {
-  //     return Promise.resolve(response.data)
-  //   }
-  // } else {
-  //   return Promise.reject(response)
-  // }
-  // }
+  if (response.status === 200) {
+    if (response.data && response.data.code === '00000002') { // 00000002 token失效
+      clearLoginInfo()
+      this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
+      setTimeout(() => {
+        router.push({ name: 'login' })
+      }, 2000)
+    } else if (response.data && response.data.code !== '00000000') {
+      console.log('err:', response.data.msg)
+      return Promise.reject(response)
+    } else {
+      return Promise.resolve(response)
+    }
+  }
 }, error => {
   // NProgress.done()
   if (error && error.response) {
@@ -94,13 +88,13 @@ http.interceptors.response.use(response => {
         break
 
       default:
-      // error.message = `连接出错(${error.response.status})!`
+        // error.message = `连接出错(${error.response.status})!`
         console.log('err' + error) // for debug
-        // Message({
-        //   message: '抱歉，服务器出错了',
-        //   type: 'error',
-        //   duration: 5 * 1000
-        // })
+      // Message({
+      //   message: '抱歉，服务器出错了',
+      //   type: 'error',
+      //   duration: 5 * 1000
+      // })
     }
   }
   return Promise.reject(error)
@@ -112,8 +106,8 @@ http.interceptors.response.use(response => {
  */
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
-  // return (process.env.NODE_ENV !== 'production' ? '/api/' : window.SITE_CONFIG.baseUrl) + actionName
-  return '/api/' + actionName
+  return (process.env.NODE_ENV === 'development' ? 'http://10.253.100.13:31503/nccc/' : 'http://10.253.100.13:31503/nccc/') + actionName
+  // return '/api/' + actionName
   // return 'http://10.253.100.13:31503/nccc/' + actionName
 }
 

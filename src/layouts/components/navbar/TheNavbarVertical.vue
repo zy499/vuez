@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:56:54
  * @LastEditors: zy
- * @LastEditTime: 2019-10-17 21:59:11
+ * @LastEditTime: 2019-10-22 16:10:58
  -->
 
 <template>
@@ -448,11 +448,9 @@ export default {
       })
     },
     async asyncOut () {
-      await loginOut().then(({data})=>{
-        if(data.code === 0) {
+      await loginOut().then(()=>{
           clearLoginInfo()
           this.$router.push({ name: 'login' })
-        }
       })
     },
     outside: function () {

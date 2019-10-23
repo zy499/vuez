@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-18 13:23:33
+ * @LastEditTime: 2019-10-22 16:15:28
  */
 import Mock from 'mockjs'
 
@@ -15,7 +15,7 @@ export function login() {
     type: 'post',
     data: {
       'msg': 'success',
-      'code': 0,
+      'code': '00000000',
       'expire': Mock.Random.natural(60 * 60 * 1, 60 * 60 * 12),
       'token': Mock.Random.string('abcdefghijklmnopqrstuvwxyz0123456789', 32),
     }
@@ -28,7 +28,7 @@ export function menuList() {
     type: 'get',
     data: {
       'msg': 'success',
-      'code': 0,
+      'code': '00000000',
       'menuList': [
         {
           url: null,
@@ -87,7 +87,7 @@ export function logout() {
     type: 'post',
     data: {
       'msg': 'success',
-      'code': 0
+      'code': '00000001'
     }
   }
 }

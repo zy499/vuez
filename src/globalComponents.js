@@ -1,12 +1,10 @@
-/* =========================================================================================
-  File Name: globalComponents.js
-  Description: Here you can register components globally
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== */
-
+/*
+ * @Description: file content
+ * @Author: zy
+ * @Date: 2019-10-03 14:16:32
+ * @LastEditors: zy
+ * @LastEditTime: 2019-10-22 09:54:44
+ */
 import Vue from 'vue'
 import VxTooltip from './layouts/components/vx-tooltip/VxTooltip.vue'
 import VxCard from './components/vx-card/VxCard.vue'

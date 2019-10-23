@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-18 14:16:38
+ * @LastEditTime: 2019-10-22 16:18:53
  */
 
 import Vue from 'vue'
@@ -115,7 +115,7 @@ router.beforeEach((to, from, next) => {
             method: 'get',
             params: http.adornParams()
           }).then(({ data }) => {
-            if (data && data.code === 0) {
+            if (data && data.code === '00000000') {
               sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
               if(!JSON.parse(localStorage.getItem('navBarSearchAndPinList'))) {
                 if (data.menuList && data.menuList.length > 0) {
@@ -150,12 +150,12 @@ function isAuthMenu(to, menuList) {
   for (let i = 0; i < menuList.length; i++) {
     if (menuList[i].submenu && menuList[i].submenu.length > 0) {
       for (let a = 0; a < menuList[i].submenu.length; a++) {
-        if (to.path === menuList[i].submenu[a].url) {
+        if (to.path === menuList[i].submenu[a].url && !menuList[i].submenu[a].isDisabled) {
           result = true
         }
       }
     } else {
-      if (to.path === menuList[i].url) {
+      if (to.path === menuList[i].url && !menuList[i].isDisabled) {
         result = true
       }
     }

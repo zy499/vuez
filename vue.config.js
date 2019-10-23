@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:16:32
  * @LastEditors: zy
- * @LastEditTime: 2019-10-11 15:21:20
+ * @LastEditTime: 2019-10-22 15:46:55
  */
 const path = require('path')
 console.log(process.env.NODE_ENV)
@@ -35,18 +35,18 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    // proxy: {
-    //   '/api': {
-    //     target: `http://10.253.100.13:31503/nccc/`,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^api': ''
-    //     }
-    //   }
-    // }
+    // overlay: {
+    //   warnings: false,
+    //   errors: true
+    // },
+    proxy: {
+      '/proxyApi': {
+        target: `http://10.253.100.13:31503/nccc/`,
+        changeOrigin: true,
+        pathRewrite: {
+          '^proxyApi': ''
+        }
+      }
+    }
   }
 }
