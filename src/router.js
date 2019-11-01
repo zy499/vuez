@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 20:57:07
  * @LastEditors: zy
- * @LastEditTime: 2019-10-23 16:08:59
+ * @LastEditTime: 2019-11-01 10:03:19
  */
 
 import Vue from 'vue'
@@ -36,7 +36,7 @@ const router = new Router({
           name: 'passengerFlowWaringHomepage',
           component: null,
           meta: {
-            iframeUrl: 'http://192.168.1.124:8001/#/passengerFlowWaringHomepage'
+            iframeUrl: 'http://192.168.1.190:8001/#/passengerFlowWaringHomepage'
           }
         },
         {
@@ -44,7 +44,7 @@ const router = new Router({
           name: 'stationDetails',
           component: null,
           meta: {
-            iframeUrl: 'http://192.168.1.124:8001/#/stationDetails'
+            iframeUrl: 'http://192.168.1.190:8001/#/stationDetails'
           }
         },
         {
@@ -52,7 +52,7 @@ const router = new Router({
           name: 'network',
           component: null,
           meta: {
-            iframeUrl: 'http://192.168.1.124:8001/#/network'
+            iframeUrl: 'http://192.168.1.190:8001/#/network'
           }
         },
         {
@@ -60,7 +60,7 @@ const router = new Router({
           name: 'od',
           component: null,
           meta: {
-            iframeUrl: 'http://192.168.1.124:8001/#/od'
+            iframeUrl: 'http://192.168.1.190:8001/#/od'
           }
         },
         {
@@ -68,7 +68,7 @@ const router = new Router({
           name: 'networkComparison',
           component: null,
           meta: {
-            iframeUrl: 'http://192.168.1.124:8001/#/networkComparison'
+            iframeUrl: 'http://192.168.1.190:8001/#/networkComparison'
           }
         }
       ]
@@ -115,8 +115,8 @@ router.beforeEach((to, from, next) => {
           }
         } else {
           http({
-            // url: http.adornUrl('sys/menuList'),
-            url: http.adornUrl('basic/authority/module/getByUserId/1'),
+            url: http.adornUrl('sys/menuList'),
+            // url: http.adornUrl('basic/authority/module/getByUserId/1'),
             method: 'get',
             params: http.adornParams()
           }).then(({ data }) => {

@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-10 21:43:24
  * @LastEditors: zy
- * @LastEditTime: 2019-10-23 13:45:50
+ * @LastEditTime: 2019-10-31 16:39:38
  */
 import Mock from 'mockjs'
 
@@ -29,8 +29,10 @@ export function menuList() {
     data: {
       'msg': 'success',
       'code': '00000000',
-      'menuList': [
+      'data': [
         {
+          id: 1,
+          parentId: 0,
           url: null,
           name: "客流监测与预警",
           tag: "2",
@@ -38,48 +40,62 @@ export function menuList() {
           icon: "HomeIcon",
           submenu: [
             {
+              id: 11,
+              parentId: 1,
               url: '/passengerFlowWaringHomepage',
               name: '主页',
               slug: 'passengerFlowWaringHomepage',
-              iframeUrl: 'http://nccc.cdmetrokyb.com/#/passengerFlowWaringHomepage',
+              iframeUrl: 'http://192.168.1.131:8001/#/passengerFlowWaringHomepage',
               icon: 'HomeIcon'
             },
             {
+              id: 12,
+              parentId: 1,
               url: '/stationDetails',
               name: '车站详情',
               slug: 'stationDetails',
-              iframeUrl: 'http://nccc.cdmetrokyb.com/#/stationDetails',
+              iframeUrl: 'http://192.168.1.131:8001/#/stationDetails',
               icon: 'LifeBuoyIcon'
             }
           ]
         },
         {
+          id: 2,
+          parentId: 0,
           url: null,
           name: "客流时空状态分布",
           icon: "MapIcon",
           submenu: [
             {
+              id: 21,
+              parentId: 2,
               url: '/network',
               name: '线网分布',
               slug: 'network',
-              iframeUrl: 'http://nccc.cdmetrokyb.com/#/network',
+              iframeUrl: 'http://192.168.1.131:8001/#/network',
               icon: 'LifeIcon'
             },
             {
+              id: 22,
+              parentId: 2,
               url: '/od',
               name: 'OD分布',
               slug: 'od',
-              iframeUrl: 'http://nccc.cdmetrokyb.com/#/od',
+              iframeUrl: 'http://192.168.1.131:8001/#/od',
               icon: 'LifeIcon'
             }
           ]
         },
         {
+          id: 3,
+          parentId: 0,
           url: null,
           name: "报表定制与展现",
           icon: "BarChart2Icon",
           submenu: [
             {
+              id: 31,
+              parentId: 3,
               url: 'http://10.76.230.81:9881/#/metro/analysis',
               name: '统计分析',
               slug: 'external',
@@ -87,6 +103,8 @@ export function menuList() {
               icon: 'LifeIcon'
             },
             {
+              id: 32,
+              parentId: 3,
               url: 'http://10.76.230.81:9881/#/metro/compare',
               name: '数据对比',
               slug: 'external',
@@ -94,6 +112,8 @@ export function menuList() {
               icon: 'LifeIcon'
             },
             {
+              id: 33,
+              parentId: 3,
               url: 'http://10.76.230.81:9881/#/metro/report',
               name: '固定报表',
               slug: 'external',
@@ -101,6 +121,8 @@ export function menuList() {
               icon: 'LifeIcon'
             },
             {
+              id: 34,
+              parentId: 3,
               url: 'http://10.76.230.81:9881/#/metro/mopes',
               name: 'MOPES',
               slug: 'external',
@@ -110,10 +132,12 @@ export function menuList() {
           ]
         },
         {
+          id: 4,
+          parentId: 0,
           url: "/networkComparison",
           name: "线网运力运量对比分析",
           slug: "networkComparison",
-          iframeUrl: 'http://nccc.cdmetrokyb.com/#/networkComparison',
+          iframeUrl: 'http://192.168.1.131:8001/#/networkComparison',
           icon: 'BarChartIcon'
         }
       ]

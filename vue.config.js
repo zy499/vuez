@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:16:32
  * @LastEditors: zy
- * @LastEditTime: 2019-10-23 15:41:43
+ * @LastEditTime: 2019-10-31 16:49:37
  */
 const path = require('path')
 function resolve (dir) {
@@ -41,8 +41,8 @@ module.exports = {
     // },
     proxy: process.env.NODE_ENV === 'development' ? {
       '/api': {
-        // target: 'http://10.253.100.13:31503/nccc/',
-        target: 'http://192.168.1.119:9002/nccc/',
+        target: 'http://10.253.100.13:31503/nccc/',
+        // target: 'http://192.168.1.189:9002/nccc/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

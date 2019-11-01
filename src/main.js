@@ -3,7 +3,7 @@
  * @Author: zy
  * @Date: 2019-10-03 14:52:12
  * @LastEditors: zy
- * @LastEditTime: 2019-10-23 15:40:08
+ * @LastEditTime: 2019-10-28 17:03:02
  */
 
 import Vue from 'vue'
@@ -65,6 +65,7 @@ require('./assets/css/iconfont.css')
 Vue.prototype.$http = httpRequest // ajax请求方法
 Vue.prototype.isAuth = isAuth // 权限方法
 Vue.prototype.$bus = new Vue() // 中央
+
 // 保存整站vuex本地储存初始状态
 window.storeState = cloneDeep(store.state)
 Vue.config.productionTip = false
