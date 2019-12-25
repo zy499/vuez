@@ -2,20 +2,12 @@
  * @Description: file content
  * @Author: zy
  * @Date: 2019-08-29 10:26:16
- * @LastEditors: zy
- * @LastEditTime: 2019-10-28 14:27:47
+ * @LastEditors  : zy
+ * @LastEditTime : 2019-12-25 12:47:29
  */
 import Vue from 'vue'
 import axios from 'axios'
-import router from '@/router'
-import qs from 'qs'
-import merge from 'lodash/merge'
-// import NProgress from 'nprogress' // progress bar
-// import 'nprogress/nprogress.css'
-import { clearLoginInfo } from '@/utils'
-// import { Message } from 'element-ui'
-// NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
-// NProgress.set(0.4)
+// import router from '@/router'
 const http = axios.create({
   timeout: 1000 * 60,
   withCredentials: true,
@@ -23,16 +15,14 @@ const http = axios.create({
     'Content-Type': 'application/json; charset=utf-8'
   }
 })
-
+// const self = new Vue
 /**
  * 请求拦截
  */
 http.interceptors.request.use(config => {
-  // NProgress.start()
   config.headers['token'] = Vue.cookie.get('token') // 请求头带上token
   return config
 }, error => {
-  // NProgress.done()
   return Promise.reject(error)
 })
 
@@ -42,13 +32,9 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
   if (response.status === 200) {
     if (response.data && response.data.code === '00000002') { // 00000002 token失效
-      clearLoginInfo()
-      this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
-      setTimeout(() => {
-        router.push({ name: 'login' })
-      }, 2000)
+      // self.$vs.notify({ title: '错误', text: '登录失效，请重新登录', color: 'danger' })
     } else if (response.data && response.data.code !== '00000000') {
-      console.log('err:', response.data.msg)
+      // self.$vs.notify({ title: '错误', text: response.data.msg, color: 'danger',position: 'top-center' })
       return Promise.reject(response)
     } else {
       return Promise.resolve(response)
@@ -59,42 +45,17 @@ http.interceptors.response.use(response => {
   if (error && error.response) {
     switch (error.response.status) {
       case 401:
-        clearLoginInfo()
-        this.$vs.notify({ title: 'Danger', text: '登录失效，请重新登录', color: 'danger' })
-        setTimeout(() => {
-          router.push({ name: 'login' })
-        }, 2000)
         break
       case 404:
-        // router.push({name: '404'})
-        // error.message = '请求出错(404)'
         console.log('err' + error) // for debug
-        // Message({
-        //   message: '抱歉，服务器出错了',
-        //   type: 'error',
-        //   duration: 5 * 1000
-        // })
         break
 
       case 500:
-        // router.push({name: '500'})
-        //  error.message = '服务器错误(500)';
         console.log('err' + error) // for debug
-        // Message({
-        //   message: '抱歉，服务器出错了',
-        //   type: 'error',
-        //   duration: 5 * 1000
-        // })
         break
 
       default:
-        // error.message = `连接出错(${error.response.status})!`
         console.log('err' + error) // for debug
-      // Message({
-      //   message: '抱歉，服务器出错了',
-      //   type: 'error',
-      //   duration: 5 * 1000
-      // })
     }
   }
   return Promise.reject(error)
@@ -111,32 +72,5 @@ http.adornUrl = (actionName) => {
   // return 'http://10.253.100.13:31503/nccc/' + actionName
 }
 
-/**
- * get请求参数处理
- * @param {*} params 参数对象
- * @param {*} openDefultParams 是否开启默认参数?
- */
-http.adornParams = (params = {}, openDefultParams = false) => {
-  var defaults = {
-    't': new Date().getTime()
-  }
-  return openDefultParams ? merge(defaults, params) : params
-}
-
-/**
- * post请求数据处理
- * @param {*} data 数据对象
- * @param {*} openDefultdata 是否开启默认数据?
- * @param {*} contentType 数据格式
- *  json: 'application/json; charset=utf-8'
- *  form: 'application/x-www-form-urlencoded; charset=utf-8'
- */
-http.adornData = (data = {}, openDefultdata = false, contentType = 'json') => {
-  var defaults = {
-    't': new Date().getTime()
-  }
-  data = openDefultdata ? merge(defaults, data) : data
-  return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)
-}
 
 export default http

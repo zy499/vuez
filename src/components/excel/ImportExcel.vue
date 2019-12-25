@@ -25,23 +25,23 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       excelData: {
         header: null,
         results: null,
-        meta: null
+        meta: null,
       }
     }
   },
   methods: {
-    generateData ({ header, results, meta }) {
+    generateData({ header, results, meta }) {
       this.excelData.header = header
       this.excelData.results = results
       this.excelData.meta = meta
       this.onSuccess && this.onSuccess(this.excelData)
     },
-    getHeaderRow (sheet) {
+    getHeaderRow(sheet) {
       const headers = []
       const range = XLSX.utils.decode_range(sheet['!ref'])
       let C
@@ -56,39 +56,39 @@ export default {
       }
       return headers
     },
-    handleDragover (e) {
+    handleDragover(e) {
       e.stopPropagation()
       e.preventDefault()
       e.dataTransfer.dropEffect = 'copy'
     },
-    handleDrop (e) {
+    handleDrop(e) {
       e.stopPropagation()
       e.preventDefault()
       const files = e.dataTransfer.files
       if (files.length !== 1) {
         this.$vs.notify({
-          title: 'Login Attempt',
-          text: 'Only support uploading one file!',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'warning'
+            title: 'Login Attempt',
+            text: 'Only support uploading one file!',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
         })
         return
       }
       const rawFile = files[0] // only use files[0]
       if (!this.isExcel(rawFile)) {
         this.$vs.notify({
-          title: 'Login Attempt',
-          text: 'Only supports upload .xlsx, .xls, .csv suffix files',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'warning'
+            title: 'Login Attempt',
+            text: 'Only supports upload .xlsx, .xls, .csv suffix files',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
         })
         return false
       }
       this.uploadFile(rawFile)
     },
-    readerData (rawFile) {
+    readerData(rawFile) {
       return new Promise((resolve) => {
         const reader = new FileReader()
         reader.onload = e => {
@@ -105,16 +105,16 @@ export default {
         reader.readAsArrayBuffer(rawFile)
       })
     },
-    handleClick (e) {
+    handleClick(e) {
       const files = e.target.files
       const rawFile = files[0]
       if (!rawFile) return
       this.uploadFile(rawFile)
     },
-    isExcel (file) {
+    isExcel(file) {
       return /\.(xlsx|xls|csv)$/.test(file.name)
     },
-    uploadFile (file) {
+    uploadFile(file) {
       this.$refs['fileInput'].value = null // fix can't select the same excel
       this.readerData(file)
     }

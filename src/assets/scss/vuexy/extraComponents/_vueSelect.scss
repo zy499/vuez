@@ -11,8 +11,14 @@
 @import "../_variables.scss";
 
 .v-select {
+  &:not(.vs--single) {
+    .vs__selected {
+      font-size: .9rem;
+    }
+  }
+
   .vs__dropdown-toggle {
-    // padding: 5px 0 5px;
+    padding: .59px 0 4px 0;
 
     .vs__search {
       color: $content-color;
@@ -22,6 +28,7 @@
       svg {
         stroke: $content-color;
         opacity: 0.5;
+        margin-top: 0 !important;
       }
     }
 
@@ -32,10 +39,9 @@
     }
 
     .vs__actions {
-      // padding: 0px 6px 0 0px;
 
       .vs__clear {
-        // display: flex;
+        color: $content-color;
       }
     }
   }

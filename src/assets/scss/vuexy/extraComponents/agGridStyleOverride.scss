@@ -33,7 +33,7 @@ $primary-color: #7367F0;
 
   color: inherit !important;
 
-  height: calc(100vh - 30rem);
+  height: calc(var(--vh, 1vh) * 100 - 30rem);
   @media screen and (max-height: 800px) {
     height: 620px;
   }
@@ -107,11 +107,13 @@ $primary-color: #7367F0;
 
   .ag-icon-checkbox-checked,
   .ag-icon-checkbox-indeterminate {
+    font-size: 22px;
     color: rgba(var(--vs-primary),1) !important;
   }
 
   .ag-icon-checkbox-unchecked {
-    color: $content-color;
+    color: $grey !important;
+    font-size: 22px;
   }
 
     ::-webkit-scrollbar {
@@ -208,4 +210,11 @@ $primary-color: #7367F0;
      border-radius: 20px;
     }
   }
+}
+
+// Custom Fixes
+.ag-grid-cell-chip {
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
 }

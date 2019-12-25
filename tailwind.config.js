@@ -1,11 +1,4 @@
 /*
- * @Description: file content
- * @Author: zy
- * @Date: 2019-10-03 14:16:32
- * @LastEditors: zy
- * @LastEditTime: 2019-11-01 14:17:59
- */
-/*
 
 Tailwind - The Utility-First CSS Framework
 
@@ -19,6 +12,7 @@ we've done our very best to explain each section.
 
 View the full documentation at https://tailwindcss.com.
 
+
 |-------------------------------------------------------------------------------
 | The default config
 |-------------------------------------------------------------------------------
@@ -31,6 +25,7 @@ View the full documentation at https://tailwindcss.com.
 */
 
 // let defaultConfig = require('tailwindcss/defaultConfig')
+
 
 /*
 |-------------------------------------------------------------------------------
@@ -74,7 +69,7 @@ module.exports = {
       'black': '#22292f',
       'white': '#ffffff',
       'grey': '#b8c2cc',
-      'grey-light': '#dae1e7'
+      'grey-light': '#dae1e7',
     },
 
     /*
@@ -100,7 +95,7 @@ module.exports = {
       'sm': '576px',
       'md': '768px',
       'lg': '992px',
-      'xl': '1200px'
+      'xl': '1200px',
     },
 
     /*
@@ -123,7 +118,7 @@ module.exports = {
       '20': 20,
       '30': 30,
       '40': 40,
-      '50': 50
+      '50': 50,
     },
 
     /*
@@ -158,7 +153,7 @@ module.exports = {
         'Fira Sans',
         'Droid Sans',
         'Helvetica Neue',
-        'sans-serif'
+        'sans-serif',
       ],
       'serif': [
         'Constantia',
@@ -170,7 +165,7 @@ module.exports = {
         'Bitstream Vera Serif',
         'Liberation Serif',
         'Georgia',
-        'serif'
+        'serif',
       ],
       'mono': [
         'Menlo',
@@ -178,9 +173,10 @@ module.exports = {
         'Consolas',
         'Liberation Mono',
         'Courier New',
-        'monospace'
+        'monospace',
       ]
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -202,17 +198,18 @@ module.exports = {
     */
 
     fontSize: {
-      'xs': '.75rem', // 12px
-      'sm': '.875rem', // 14px
-      'base': '1rem', // 16px
-      'lg': '1.125rem', // 18px
-      'xl': '1.25rem', // 20px
-      '2xl': '1.5rem', // 24px
-      '3xl': '1.875rem', // 30px
-      '4xl': '2.25rem', // 36px
-      '5xl': '3rem', // 48px
-      '6xl': '4rem' // 64px
+      'xs': '.75rem',     // 12px
+      'sm': '.875rem',    // 14px
+      'base': '1rem',     // 16px
+      'lg': '1.125rem',   // 18px
+      'xl': '1.25rem',    // 20px
+      '2xl': '1.5rem',    // 24px
+      '3xl': '1.875rem',  // 30px
+      '4xl': '2.25rem',   // 36px
+      '5xl': '3rem',      // 48px
+      '6xl': '4rem',      // 64px
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -235,8 +232,9 @@ module.exports = {
       'semibold': 600,
       'bold': 700,
       'extrabold': 800,
-      'black': 900
+      'black': 900,
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -254,8 +252,9 @@ module.exports = {
       'none': 1,
       'tight': 1.25,
       'normal': 1.5,
-      'loose': 2
+      'loose': 2,
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -273,8 +272,9 @@ module.exports = {
     letterSpacing: {
       'tight': '-0.05em',
       'normal': '0',
-      'wide': '0.05em'
+      'wide': '0.05em',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -289,7 +289,11 @@ module.exports = {
     |
     */
 
-    textColor: theme => theme('colors'),
+    textColor: theme => ({
+      inherit: "inherit",
+      ...theme('colors'),
+    }),
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -305,6 +309,7 @@ module.exports = {
     */
 
     backgroundColor: theme => theme('colors'),
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -322,8 +327,9 @@ module.exports = {
     backgroundSize: {
       'auto': 'auto',
       'cover': 'cover',
-      'contain': 'contain'
+      'contain': 'contain',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -343,8 +349,9 @@ module.exports = {
       '0': '0',
       '2': '2px',
       '4': '4px',
-      '8': '8px'
+      '8': '8px',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -365,8 +372,9 @@ module.exports = {
 
     borderColor: theme => ({
       default: theme('colors.grey-light'),
-      ...theme('colors')
+      ...theme('colors'),
     }),
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -389,8 +397,9 @@ module.exports = {
       'sm': '.125rem',
       default: '.25rem',
       'lg': '.5rem',
-      'full': '9999px'
+      'full': '9999px',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -427,8 +436,6 @@ module.exports = {
       '16': '4rem',
       '24': '6rem',
       '32': '8rem',
-      '34.5': '9.5rem',
-      '36': '10rem',
       '48': '12rem',
       '64': '16rem',
       '1/2': '50%',
@@ -447,7 +454,6 @@ module.exports = {
       '3/12': '25%',
       '4/12': '33.33333%',
       '5/12': '41.66667%',
-      '5.5/12': '43.00555%',
       '6/12': '50%',
       '7/12': '58.33333%',
       '8/12': '66.66667%',
@@ -457,6 +463,7 @@ module.exports = {
       'full': '100%',
       'screen': '100vw'
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -490,10 +497,10 @@ module.exports = {
       '32': '8rem',
       '48': '12rem',
       '64': '16rem',
-      '1/2': '50%',
       'full': '100%',
       'screen': '100vh'
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -511,8 +518,9 @@ module.exports = {
 
     minWidth: {
       '0': '0',
-      'full': '100%'
+      'full': '100%',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -533,6 +541,7 @@ module.exports = {
       'full': '100%',
       'screen': '100vh'
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -559,8 +568,9 @@ module.exports = {
       '3xl': '80rem',
       '4xl': '90rem',
       '5xl': '100rem',
-      'full': '100%'
+      'full': '100%',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -578,8 +588,9 @@ module.exports = {
 
     maxHeight: {
       'full': '100%',
-      'screen': '100vh'
+      'screen': '100vh',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -612,8 +623,9 @@ module.exports = {
       '16': '4rem',
       '20': '5rem',
       '24': '6rem',
-      '32': '8rem'
+      '32': '8rem',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -652,7 +664,7 @@ module.exports = {
       '-1': '-0.25rem',
       '-2': '-0.5rem',
       '-3': '-0.75rem',
-      '-4': '-1rem'
+      '-4': '-1rem',
     },
 
     order: {
@@ -664,13 +676,14 @@ module.exports = {
       '3': '3',
       '4': '4',
       '5': '5',
-      '6': '6'
+      '6': '6',
     },
 
     container: {
       center: true,
-      padding: '1rem'
+      padding: '1rem',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -700,6 +713,7 @@ module.exports = {
       'drop': '0 2px 8px 0 rgba(0,0,0,0.14)'
     },
 
+
     /*
     |-----------------------------------------------------------------------------
     | Opacity                                https://tailwindcss.com/docs/opacity
@@ -714,7 +728,7 @@ module.exports = {
     */
 
     // NOTE: IF YOU WANT TO CUSTOMIZE OPACITY THAN UNCOMMENT BELOW OBJECT AND EDIT
-    // ELSE JUST REMOVE IT OR COMMENT IT FOR LATER CUSTOMIZATION
+             // ELSE JUST REMOVE IT OR COMMENT IT FOR LATER CUSTOMIZATION
     // opacity: {
     //   '0': '0',
     //   '25': '.25',
@@ -722,6 +736,7 @@ module.exports = {
     //   '75': '.75',
     //   '100': '1',
     // },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -738,8 +753,9 @@ module.exports = {
     */
 
     fill: {
-      'current': 'currentColor'
+      'current': 'currentColor',
     },
+
 
     /*
     |-----------------------------------------------------------------------------
@@ -756,9 +772,10 @@ module.exports = {
     */
 
     stroke: {
-      'current': 'currentColor'
-    }
+      'current': 'currentColor',
+    },
   },
+
 
   /*
   |-----------------------------------------------------------------------------
@@ -840,8 +857,9 @@ module.exports = {
     whitespace: ['responsive'],
     wordBreak: ['responsive'],
     width: ['responsive'],
-    zIndex: ['responsive']
+    zIndex: ['responsive'],
   },
+
 
   /*
   |-----------------------------------------------------------------------------
@@ -864,7 +882,7 @@ module.exports = {
     letterSpacing: false,
     backgroundPosition: false,
     backgroundRepeat: false,
-    listStyleType: false
+    listStyleType: false,
   }
 
 }

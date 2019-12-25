@@ -1,13 +1,17 @@
-<!--
- * @Description: file content
- * @Author: zy
- * @Date: 2019-10-03 14:16:32
- * @LastEditors: zy
- * @LastEditTime: 2019-10-03 14:16:32
- -->
+<!-- =========================================================================================
+    File Name: TheFooter.vue
+    Description: Footer component
+    Component Name: TheFooter
+    ----------------------------------------------------------------------------------------
+    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+      Author: Pixinvent
+    Author URL: http://www.themeforest.net/user/pixinvent
+========================================================================================== -->
+
+
 <template functional>
     <footer class="the-footer flex-wrap justify-between" :class="classes">
-        <span>COPYRIGHT @ {{ new Date().getFullYear() }} <a href="https://github.com/zy499" target="_blank" rel="nofollow">ZhangYang</a>, All rights Reserved</span>
+        <span>COPYRIGHT &copy; {{ new Date().getFullYear() }} <a href="https://1.envato.market/vuexy_admin" target="_blank" rel="nofollow">Pixinvent</a>, All rights Reserved</span>
         <span class="md:flex hidden items-center">
             <span>Hand-crafted & Made with</span>
             <feather-icon icon="HeartIcon" svgClasses="stroke-current text-danger w-6 h-6" class="ml-2" />
@@ -17,11 +21,11 @@
 
 <script>
 export default {
-  name: 'the-footer',
-  props: {
-    classes: {
-      type: String
+    name: "the-footer",
+    props: {
+        classes: {
+            type: String,
+        },
     }
-  }
 }
 </script>

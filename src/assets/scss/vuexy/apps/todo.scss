@@ -40,4 +40,12 @@
             transition: all 0.2s;
         }
     }
+
+    .todo-list {
+      .todo-tags {
+        .con-vs-chip {
+          margin-right: 2px !important;
+        }
+      }
+    }
 }

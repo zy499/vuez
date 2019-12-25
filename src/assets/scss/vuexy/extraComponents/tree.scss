@@ -637,6 +637,10 @@ circle[data-v-25a85bf2] {
     padding-left: 17px !important;
   }
 
+  > li.first-node.only-node::after {
+    z-index: -10;
+  }
+
   .box-halfchecked:after {
     top: -1px;
   }

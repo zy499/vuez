@@ -1,57 +1,82 @@
 <!--
  * @Description: file content
  * @Author: zy
- * @Date: 2019-10-03 14:42:12
+ * @Date: 2019-12-10 16:03:17
  * @LastEditors: zy
- * @LastEditTime: 2019-10-18 16:42:10
+ * @LastEditTime: 2019-12-25 14:01:30
  -->
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+	<div id="app" :class="vueAppClasses">
+		<router-view @setAppClasses="setAppClasses" />
+	</div>
 </template>
 
 <script>
 import themeConfig from '@/../themeConfig.js'
-// import WarterMark from '@/utils/warterMark'
+
 export default {
+  data() {
+    return {
+      vueAppClasses: [],
+    }
+  },
   watch: {
-    '$store.state.theme' (val) {
+    '$store.state.theme'(val) {
       this.toggleClassInBody(val)
+    },
+    '$vs.rtl'(val) {
+      document.documentElement.setAttribute("dir", val ? "rtl" : "ltr")
     }
   },
   methods: {
-    toggleClassInBody (className) {
-      if (className === 'dark') {
-        if (document.body.className.match('theme-semi-dark')) { document.body.classList.remove('theme-semi-dark') }
+    toggleClassInBody(className) {
+      if (className == 'dark') {
+        if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark')
         document.body.classList.add('theme-dark')
-      } else if (className === 'semi-dark') {
-        if (document.body.className.match('theme-dark')) { document.body.classList.remove('theme-dark') }
+      }
+      else if (className == 'semi-dark') {
+        if (document.body.className.match('theme-dark')) document.body.classList.remove('theme-dark')
         document.body.classList.add('theme-semi-dark')
-      } else {
-        if (document.body.className.match('theme-dark')) { document.body.classList.remove('theme-dark') }
-        if (document.body.className.match('theme-semi-dark')) { document.body.classList.remove('theme-semi-dark') }
+      }
+      else {
+        if (document.body.className.match('theme-dark'))      document.body.classList.remove('theme-dark')
+        if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark')
       }
     },
-    handleWindowResize () {
-      this.$store.commit('UPDATE_WINDOW_WIDTH', window.innerWidth)
+    setAppClasses(classesStr) {
+      this.vueAppClasses.push(classesStr)
     },
-    handleScroll () {
+    handleWindowResize() {
+      this.$store.commit('UPDATE_WINDOW_WIDTH', window.innerWidth)
+
+      // Set --vh property
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    },
+    handleScroll() {
       this.$store.commit('UPDATE_WINDOW_SCROLL_Y', window.scrollY)
     }
   },
-  mounted () {
-    // WarterMark.set('成都地铁')
+  mounted() {
     this.toggleClassInBody(themeConfig.theme)
     this.$store.commit('UPDATE_WINDOW_WIDTH', window.innerWidth)
+
+    let vh = window.innerHeight * 0.01;
+    // Then we set the value in the --vh custom property to the root of the document
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   },
-  async created () {
+  async created() {
+
+    let dir = this.$vs.rtl ? "rtl" : "ltr"
+    document.documentElement.setAttribute("dir", dir)
+
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('scroll', this.handleScroll)
+
   },
-  destroyed () {
+  destroyed() {
     window.removeEventListener('resize', this.handleWindowResize)
     window.removeEventListener('scroll', this.handleScroll)
-  }
+  },
 }
+
 </script>

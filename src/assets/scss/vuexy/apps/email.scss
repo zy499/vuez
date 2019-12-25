@@ -17,7 +17,7 @@
             margin-right: 0.8rem;
         }
     }
-    .email-scroll-area {
+    .email-filter-scroll-area {
         position: relative;
         margin: auto;
         width: 100%;
@@ -29,6 +29,13 @@
         margin: auto;
         width: 100%;
         height: calc(100% - 100px);
+    }
+
+    .scroll-area-mail-content {
+      position: relative;
+      margin: auto;
+      width: 100%;
+      height: calc(100% - 6.3%);
     }
 
     .email__mails {
@@ -87,6 +94,7 @@
         .mail__attachment {
           .vs-chip--text {
             margin-left: 0;
+            margin-right: 0;
           }
         }
     }
@@ -104,6 +112,12 @@
 
             .scroll-area {
                 max-height: 75vh;
+            }
+
+            .compose-mail-attachment {
+              .con-input-upload {
+                margin: 0;
+              }
             }
         }
     }

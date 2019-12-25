@@ -34,14 +34,13 @@ body {
   .vx-logo-text{
     font-size: 22px;
     font-weight: 600;
-    color: #7367F0;
     animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
   }
 }
 
 .router-view {
   position: relative;
-  padding: 2.2rem;
+  padding: 10px;
 
   @media (max-width: 576px) {
     padding: 1.2rem !important;
@@ -99,16 +98,17 @@ body {
   transition: margin-left 0.5s;
 
   .content-wrapper {
-    min-height: calc(100vh - 3.5rem);
+    // min-height: calc(var(--vh, 1vh) * 100 - 3.5rem);
+    min-height: calc(var(--vh, 1vh) * 100);
 
     .navbar-static & {
-      min-height: calc(100vh - 8rem);
+      min-height: calc(var(--vh, 1vh) * 100 - 8rem);
     }
   }
 
-  &.content-area-reduced {
-    margin-left: 260px;
-  }
+  // &.content-area-reduced {
+  //   margin-left: 260px;
+  // }
 
   &.content-area-lg {
     margin-left: $reduced-sidebar-width;
@@ -126,7 +126,10 @@ body {
 
 .navbar-floating {
   .router-content {
-    margin-top: 5.5rem;
+    // margin-top: 5.5rem;
+    @media (max-width: 576px) {
+      margin-top: 6rem;
+    }
   }
 }
 
@@ -173,6 +176,6 @@ div[id$="demo"] {
 // Applications Page
 // ======================================================================================
 
-.app-fixed-height {
-  height: calc(100vh - 14.1rem);
+.no-scroll-content {
+  height: calc(var(--vh, 1vh) * 100 - 14.1rem);
 }

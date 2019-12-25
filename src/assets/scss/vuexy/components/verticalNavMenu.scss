@@ -14,7 +14,7 @@
 .v-nav-menu-swipe-area {
   position: fixed;
   background: transparent;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 30px;
   z-index: 1;
   top: 0;
@@ -42,6 +42,10 @@
       }
 
       &:hover:not(.vs-sidebar-reduceNotRebound):not(.vs-sidebar-reduceNotHoverExpand){
+        .vs-sidebar--items {
+        }
+
+
         .vs-sidebar-group .group-header i{
           display: block;
         }
@@ -63,7 +67,7 @@
 
     .feather-icon {
     	svg {
-    		color: $primary;
+    		color: #7367F0;
     	}
     }
   }
@@ -83,7 +87,7 @@
     position: relative;
     margin: auto;
     width: 100%;
-    height: calc(100vh - 69px);
+    height: calc(var(--vh, 1vh) * 100 - 69px);
 
     > .vs-sidebar-group{
       padding: 0 15px;
@@ -139,7 +143,7 @@
     }
 
     &.vs-sidebar-item-active {
-	  	border-right: none !important;
+	  	border: none !important;
       font-weight: 400;
       z-index: 1;
       position: relative;

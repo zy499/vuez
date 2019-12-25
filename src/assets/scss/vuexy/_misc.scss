@@ -1,16 +1,8 @@
-/*=========================================================================================
-    File Name: _misc.scss
-    Description: partial- misc styles
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 
 code {
   font-family: $font-family-sans-serif;
   background: #eee;
-  padding: 0.1rem 0.3rem;
+  padding: 0.1rem .3rem;
   border-radius: 3px;
 }
 
@@ -23,110 +15,12 @@ ol {
 
 .layout--full-page {
   .bg-img {
-    background-image: url("../images/pages/背景图.png");
+    background-image: url("../images/pages/vuexy-login-bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .bg-img-left {
-    position: relative;
-    background-image: url("../images/pages/左边背景.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    .bg-left-title {
-      margin: 32px 0 0 40px;
-      .bg-left-nccc {
-        font-size: 24px;
-        font-family: Montserrat-ExtraBold, Montserrat;
-        font-weight: 800;
-        color: rgba(32, 46, 61, 1);
-        padding-right: 14px;
-      }
-      .bg-left-ky {
-        font-size: 16px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: rgba(148, 158, 168, 1);
-      }
-    }
-    .login-cont {
-      position: absolute;
-      left: 25%;
-      top: 25%;
-      .contTitle {
-        font-size: 22px;
-        font-family: Montserrat-SemiBold, Montserrat;
-        font-weight: 600;
-        color: rgba(32, 46, 61, 1);
-      }
-      .contNccc {
-        height: 58px;
-        font-size: 48px;
-        font-family: Montserrat-ExtraBold, Montserrat;
-        font-weight: 800;
-        color: rgba(77, 148, 255, 1);
-        line-height: 58px;
-      }
-      .contInputBox {
-        .vs-input-primary .vs-input--input:focus ~ .vs-placeholder-label {
-          color: #067ffe;
-        }
-        .vs-inputx {
-          font-size: 16px;
-          font-family: PingFangSC-Medium,PingFang SC;
-          font-weight: 500;
-          height: 38px;
-          color: rgba(32,46,61,1);
-        }
-        .contInputFont {
-          span:first-child {
-            font-size: 14px;
-            font-family: PingFangSC-Medium, PingFang SC;
-            font-weight: 500;
-            color: rgba(148, 158, 168, 1);
-            line-height: 20px;
-            margin-right: 8px;
-          }
-          span:last-child {
-            font-size: 14px;
-            font-family: Montserrat-Regular, Montserrat;
-            font-weight: 400;
-            color: rgba(148, 158, 168, 1);
-            line-height: 18px;
-          }
-        }
-        .password-box {
-          position: relative;
-          .password-eye {
-            position: absolute !important;
-            top: 25%;
-            right: 10px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-          }
-        }
-        .remember_pwd_text {
-          font-size: 12px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(148, 158, 168, 1);
-        }
-      }
-      .handleBtn {
-        height: 60px;
-        border-radius: 46px;
-        box-shadow: 0 10px 17px -2px rgba(6, 127, 254, 0.4);
-        .vs-button--text {
-          font-size: 20px;
-          font-family: PingFangSC-Medium, PingFang SC;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-  }
+
   .full-page-bg-color {
     background-color: #eff2f7;
   }
@@ -152,6 +46,7 @@ ol {
   height: 240px;
 }
 
+
 // ======================================================================================
 // Video.js
 // ======================================================================================
@@ -160,14 +55,16 @@ ol {
   width: 100% !important;
 }
 
+
 // ======================================================================================
 // Spinner
 // ======================================================================================
 
-.spinner {
-  animation: spin 1.5s linear infinite;
-}
+// .spinner {
+//   animation: spin 1.5s linear infinite;
+// }
 
+/*! rtl:begin:ignore */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -177,6 +74,8 @@ ol {
     transform: rotate(360deg);
   }
 }
+/*! rtl:end:ignore */
+
 
 // ======================================================================================
 // Feather - Font Icon

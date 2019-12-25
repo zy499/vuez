@@ -62,6 +62,10 @@
         background: #f6f6f6;
         border-radius: 6px;
       }
+
+      > ul {
+        padding-left: 0 !important;
+      }
     }
     &.vs-sidebar-group-open {
         >.group-header {
@@ -72,8 +76,7 @@
             padding-left:0;
             .vs-sidebar--item{
                 span{
-                    padding-left: 2rem;
-                    padding: 0;
+                    padding-left: 0 0 0 2rem;
                 }
                 &:last-child{
                     border-bottom: 0px;

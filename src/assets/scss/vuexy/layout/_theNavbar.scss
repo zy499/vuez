@@ -111,7 +111,7 @@
   .content-area-lg {
     .vx-navbar-wrapper {
       .vx-navbar {
-        width: calc(100% - 80px);
+        width: 100%;
       }
     }
   }
@@ -174,19 +174,6 @@
       display: none;
     }
   }
-  &.main-horizontal {
-    .vx-navbar-wrapper {
-      position: fixed;
-
-      &.nav-menu-wrapper {
-        display: none;
-      }
-    }
-
-    .router-view {
-      margin-top: 4.5rem;
-    }
-  }
 }
 
 .search-full-container {
@@ -199,7 +186,7 @@
 
     input[type="text"],
     .input-span-placeholder {
-      padding: 1.6rem 3rem;
+      padding: 1.6rem 3rem !important;
     }
 
     .vs-input--icon.feather {
@@ -262,14 +249,18 @@
 
   .navbar-static {
     .vx-navbar-wrapper {
+      padding: 0;
+
       .vx-navbar {
         padding: .8rem 1.5rem;
       }
     }
 
-    .router-view {
-      .router-content {
-        margin-top: 0;
+    &.main-vertical {
+      .router-view {
+        .router-content {
+          margin-top: 0;
+        }
       }
     }
   }
@@ -349,7 +340,7 @@
 
 .vx-navbar-dropdown {
   @media screen and (max-height: 334px) {
-    top: calc(100vh - 82.5vh) !important;
+    top: calc(var(--vh, 1vh) * 100 - 82.5vh) !important;
 
     .vs-dropdown--menu--after {
       display: none;

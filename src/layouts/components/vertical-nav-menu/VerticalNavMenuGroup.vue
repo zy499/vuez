@@ -1,10 +1,14 @@
-<!--
- * @Description: file content
- * @Author: zy
- * @Date: 2019-10-10 20:57:07
- * @LastEditors: zy
- * @LastEditTime: 2019-10-11 01:10:34
- -->
+<!-- =========================================================================================
+	File Name: VerticalNavMenuGroup.vue
+	Description: Vertical NavMenu Group Component. Extends vuesax framework's 'vs-sidebar-group' component
+	Component Name: VerticalNavMenuGroup
+	----------------------------------------------------------------------------------------
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Author: Pixinvent
+	Author URL: http://www.themeforest.net/user/pixinvent
+========================================================================================== -->
+
+
 <template>
   <div
     class  = "vs-sidebar-group"
@@ -27,7 +31,7 @@
             :svgClasses = "{ 'w-3 h-3' : this.groupIndex % 1 != 0 }" />
 
           <!-- Group Name -->
-          <span v-show="!verticalNavMenuItemsMin" class="truncate mr-3 select-none">{{ group.name }}</span>
+          <span v-show="!verticalNavMenuItemsMin" class="truncate mr-3 select-none">{{  group.name }}</span>
 
           <!-- Group Tag -->
           <vs-chip class="ml-auto mr-4" :color="group.tagColor" v-if="group.tag && !verticalNavMenuItemsMin">{{ group.tag }}</vs-chip>
@@ -37,11 +41,11 @@
         <feather-icon
           v-show     = "!verticalNavMenuItemsMin"
           :class     = "[{'rotate90' : openItems}, 'feather-grp-header-arrow']"
-          icon       = "ChevronRightIcon"
+          :icon       = "$vs.rtl ? 'ChevronLeftIcon' : 'ChevronRightIcon'"
           svg-classes= "w-4 h-4" />
 
         <!-- Group Tooltip -->
-        <span class="vs-sidebar--tooltip">{{ group.name }}</span>
+        <span class="vs-sidebar--tooltip">{{  group.name }}</span>
       </div>
       <!-- /Group Label -->
 
@@ -53,7 +57,7 @@
           <v-nav-menu-group
             v-if        = "groupItem.submenu"
             :group      = "groupItem"
-            :groupIndex = "Number(`${groupIndex}.${index}`)"
+            :groupIndex = "Number(`${groupIndex}.${index+1}`)"
             :open       = "isGroupActive(groupItem)"
             :openHover  = "openHover" />
 
@@ -64,11 +68,10 @@
             :index  = "groupIndex + '.' + index"
             :to="groupItem.slug !== 'external' ? groupItem.url : null"
             :href="groupItem.slug === 'external' ? groupItem.url : null"
-            :icon="itemIcon(groupIndex + '.' + index)"
-            :slug="groupItem.slug"
-            :isIframe="groupItem.isIframe"
-            :target="groupItem.target">
-              <span class="truncate">{{ groupItem.name }}</span>
+            :icon   = "itemIcon(groupIndex + '.' + index)"
+            :slug   = "groupItem.slug"
+            :target = "groupItem.target">
+              <span class="truncate">{{  groupItem.name }}</span>
               <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
           </v-nav-menu-item>
 
@@ -78,45 +81,46 @@
   </div>
 </template>
 
+
 <script>
 import VNavMenuItem from './VerticalNavMenuItem.vue'
 
 export default {
-  name: 'v-nav-menu-group',
-  props: {
-    openHover: { type: Boolean, default: false },
-    open: { type: Boolean, default: false },
-    group: { type: Object },
-    groupIndex: { type: Number }
+  name  : 'v-nav-menu-group',
+  props : {
+    openHover  : { type: Boolean, default: false },
+    open       : { type: Boolean, default: false },
+    group      : { type: Object },
+    groupIndex : { type: Number },
   },
   components: {
     VNavMenuItem
   },
   data: () => ({
-    maxHeight: '0px',
-    openItems: false
+    maxHeight : '0px',
+    openItems : false
   }),
   computed: {
-    verticalNavMenuItemsMin () { return this.$store.state.verticalNavMenuItemsMin },
-    styleItems () {
+    verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
+    styleItems() {
       return { maxHeight: this.maxHeight }
     },
-    itemIcon () {
+    itemIcon() {
       return (index) => {
-        if (!((index.match(/\./g) || []).length > 1)) return 'CircleIcon'
+        if (!((index.match(/\./g) || []).length > 1)) return "CircleIcon"
       }
     },
-    isGroupActive () {
+    isGroupActive() {
       return (item) => {
-        const path = this.$route.fullPath
-        let open = false
+        const path        = this.$route.fullPath
+        let open          = false
         const routeParent = this.$route.meta ? this.$route.meta.parent : undefined
 
         let func = (item) => {
           if (item.submenu) {
             item.submenu.forEach((item) => {
-              // eslint-disable-next-line eqeqeq
-              if ((path == item.url || routeParent == item.slug) && item.url) { open = true } else if (item.submenu) { func(item) }
+              if ((path == item.url || routeParent == item.slug) && item.url) { open = true}
+              else if (item.submenu) { func(item) }
             })
           }
         }
@@ -124,68 +128,73 @@ export default {
         func(item)
         return open
       }
-    }
+    },
   },
   watch: {
     // OPEN & CLOSES DROPDOWN ON ROUTE CHANGE
-    '$route' () {
+    '$route'() {
       if (this.verticalNavMenuItemsMin) return
 
       let scrollHeight = this.scrollHeight
 
       // Collapse Group
       if (this.openItems && !this.open) {
+
         this.maxHeight = `${scrollHeight}px`
-        setTimeout(() => {
+        setTimeout(()  => {
           this.maxHeight = `${0}px`
         }, 50)
 
       // Expand Group
       } else if (this.open) {
+
         this.maxHeight = `${scrollHeight}px`
-        setTimeout(() => {
+        setTimeout(()  => {
           this.maxHeight = 'none'
         }, 300)
       }
     },
-    maxHeight () {
-      // eslint-disable-next-line eqeqeq
+    maxHeight() {
       this.openItems = this.maxHeight != '0px'
     },
     // OPEN AND CLOSES DROPDOWN MENU ON NavMenu COLLAPSE AND DEFAULT VIEW
-    '$store.state.verticalNavMenuItemsMin' (val) {
+    '$store.state.verticalNavMenuItemsMin'(val) {
       let scrollHeight = this.$refs.items.scrollHeight
 
       if (!val && this.open) {
+
         this.maxHeight = `${scrollHeight}px`
-        setTimeout(() => {
+        setTimeout(()  => {
           this.maxHeight = 'none'
         }, 300)
       } else {
+
         this.maxHeight = `${scrollHeight}px`
-        setTimeout(() => {
+        setTimeout(()  => {
           this.maxHeight = '0px'
         }, 50)
       }
       if (val && this.open) {
+
         this.maxHeight = `${scrollHeight}px`
-        setTimeout(() => {
+        setTimeout(()  => {
           this.maxHeight = '0px'
         }, 250)
       }
     }
   },
   methods: {
-    clickGroup () {
+    clickGroup() {
       if (!this.openHover) {
+
         let thisScrollHeight = this.$refs.items.scrollHeight
 
-        // eslint-disable-next-line eqeqeq
         if (this.maxHeight == '0px') {
           this.maxHeight = `${thisScrollHeight}px`
           setTimeout(() => {
             this.maxHeight = 'none'
           }, 300)
+
         } else {
           this.maxHeight = `${thisScrollHeight}px`
           setTimeout(() => {
@@ -195,7 +204,6 @@ export default {
 
         this.$parent.$children.map((child) => {
           if (child.isGroupActive) {
-            // eslint-disable-next-line eqeqeq
             if (child !== this && (!child.open) && child.maxHeight != '0px') {
               setTimeout(() => {
                 child.maxHeight = `${0}px`
@@ -205,26 +213,27 @@ export default {
         })
       }
     },
-    mouseover () {
+    mouseover() {
       if (this.openHover) {
         let scrollHeight = this.$refs.items.scrollHeight
-        this.maxHeight = `${scrollHeight}px`
+        this.maxHeight   = `${scrollHeight}px`
       }
     },
-    mouseout () {
+    mouseout() {
       if (this.openHover) {
         let scrollHeight = 0
-        this.maxHeight = `${scrollHeight}px`
+        this.maxHeight   = `${scrollHeight}px`
       }
     }
   },
-  mounted () {
+  mounted() {
     this.openItems = this.open
     if (this.open) { this.maxHeight = 'none' }
-  }
+  },
 }
 
 </script>
+
 
 <style lang="scss">
 @import "@/assets/scss/vuexy/components/verticalNavMenuGroup.scss"

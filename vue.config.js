@@ -1,9 +1,9 @@
 /*
  * @Description: file content
  * @Author: zy
- * @Date: 2019-10-03 14:16:32
+ * @Date: 2019-12-10 16:03:17
  * @LastEditors: zy
- * @LastEditTime: 2019-10-31 16:49:37
+ * @LastEditTime: 2019-12-25 13:55:54
  */
 const path = require('path')
 function resolve (dir) {
@@ -11,11 +11,12 @@ function resolve (dir) {
 }
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
-  // publicPath: '/',
+
   transpileDependencies: [
     'vue-echarts',
     'resize-detector'
   ],
+
   configureWebpack: {
     name: 'vuez Admin',
     optimization: {
@@ -29,16 +30,10 @@ module.exports = {
       }
     }
   },
-  outputDir: 'dist',
-  assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
     open: true,
-    // overlay: {
-    //   warnings: false,
-    //   errors: true
-    // },
     proxy: process.env.NODE_ENV === 'development' ? {
       '/api': {
         target: 'http://10.253.100.13:31503/nccc/',
@@ -49,5 +44,12 @@ module.exports = {
         }
       }
     } : {}
+  },
+  chainWebpack: config => {
+    config.module
+      .rule('svg-sprite')
+      .use('svgo-loader')
+      .loader('svgo-loader')
   }
 }
+

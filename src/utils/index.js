@@ -2,8 +2,8 @@
  * @Description: file content
  * @Author: zy
  * @Date: 2019-08-27 09:10:58
- * @LastEditors: zy
- * @LastEditTime: 2019-10-18 13:53:56
+ * @LastEditors  : zy
+ * @LastEditTime : 2019-12-21 16:25:37
  */
 import Vue from 'vue'
 
@@ -59,6 +59,7 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
 export function clearLoginInfo () {
   Vue.cookie.delete('token')
   // store.commit('resetStore')
+  localStorage.removeItem('userInfo')
   sessionStorage.removeItem('menuList')
   // localStorage.removeItem('navBarSearchAndPinList')
 }
@@ -212,4 +213,20 @@ export function deepCopy (obj) {
     }
   }
   return result
+}
+
+/**
+ * [通过参数名获取url中的参数值]
+ * 示例URL:http://htmlJsTest/getrequest.html?uid=admin&rid=1&fid=2&name=小明
+ * @param  {[string]} queryName [参数名]
+ * @return {[string]}           [参数值]
+ */
+export function getQueryValue(queryName) {
+  var query = decodeURI(window.location.search.substring(1));
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == queryName) { return pair[1]; }
+  }
+  return null;
 }

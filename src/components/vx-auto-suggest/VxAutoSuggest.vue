@@ -1,20 +1,15 @@
-<!--
- * @Description: file content
- * @Author: zy
- * @Date: 2019-10-03 14:16:32
- * @LastEditors: zy
- * @LastEditTime: 2019-10-15 10:51:38
- -->
 <template>
   <div class="vx-auto-suggest">
     <div class="flex items-center relative">
+
+      <!-- Input -->
       <vs-input
-        :placeholder="placeholder"
         ref="input"
+        :placeholder="placeholder"
         :class="inputClassses"
         class="z-50"
-        icon-pack="feather"
-        icon="icon-search"
+        icon-pack='feather'
+        icon='icon-search'
         icon-no-border
         v-model="searchQuery"
         @keyup.esc="escPressed"
@@ -22,45 +17,57 @@
         @keyup.down="increaseIndex"
         @keyup.enter="suggestionSelected"
         @focus="updateInputFocus"
-        @blur="updateInputFocus(false)"
-      ></vs-input>
+        @blur="updateInputFocus(false)" />
     </div>
+
+    <!-- Group List -->
     <ul
       ref="scrollContainer"
-      class="auto-suggest-suggestions-list z-50 rounded-lg mt-2 shadow-lg overflow-hidden"
       :class="{'hidden': !inputFocused}"
+      class="auto-suggest-suggestions-list z-50 rounded-lg mt-2 shadow-lg overflow-x-hidden"
       @mouseenter="insideSuggestions = true"
       @mouseleave="insideSuggestions = false"
       @focus="updateInputFocus"
       @blur="updateInputFocus(false)"
-      tabindex="-1"
-    >
+      tabindex="-1">
+
       <li
-        ref="option"
-        class="auto-suggest__suggestion flex items-center justify-between py-3 cursor-pointer"
-        v-for="(suggestion, index) in filteredData"
-        :key="index"
-        :class="{'vx-auto-suggest__current-selected': currentSelected == index, 'pointer-events-none': suggestion.index < 0}"
-        @mouseenter="currentSelected = index"
-        @click="suggestionSelected"
-      >
-        <div class="flex items-center">
-          <feather-icon :icon="suggestion.labelIcon" svgClasses="h-5 w-5" class="mr-4"></feather-icon>
-          <span>{{ suggestion.label }}</span>
-        </div>
-        <feather-icon
-          v-if="showAction"
-          :icon="data.actionIcon"
-          :svgClasses="[actionClasses(suggestion.highlightAction), 'h-5 w-5']"
-          @click.stop="actionClicked"
-        ></feather-icon>
+        ref="grp_list"
+        v-for="(suggestion_list, grp_name, grp_index) in filteredData"
+        :key="grp_index"
+        class="auto-suggest__suggestion-group-container">
+
+          <!-- Group Header -->
+          <p class="auto-suggest__suggestion-group-title pt-3 pb-1 px-4" v-if="!hideGroupTitle">
+            <slot name="group" :group_name="grp_name"></slot>
+          </p>
+
+          <!-- Suggestion List of each group -->
+          <ul>
+            <li
+              v-for="(suggestion, index) in suggestion_list"
+              :key="index"
+              class="auto-suggest__suggestion-group__suggestion py-3 px-4 cursor-pointer"
+              :class="{'vx-auto-suggest__current-selected': currentSelected == `${grp_index}.${index}`}"
+              @mouseenter="currentSelected = `${grp_index}.${index}`"
+              @click="suggestionSelected">
+              <slot :name="grp_name" :suggestion="suggestion"></slot>
+            </li>
+
+            <li class="auto-suggest__suggestion-group__suggestion py-3 px-4 no-results" v-if="!suggestion_list.length && searchQuery">
+              <slot name="noResult" :group_name="grp_name">
+                  <p>No Results Found.</p>
+              </slot>
+            </li>
+          </ul>
       </li>
     </ul>
+
   </div>
 </template>
 
 <script>
-export default {
+export default{
   props: {
     placeholder: {
       type: String,
@@ -68,178 +75,164 @@ export default {
     },
     data: {
       type: Object,
-      required: true
+      required: true,
     },
-    showAction: {
-      type: Boolean,
-      default: false
+    initalData: {
+      type: Object,
+      default: () => new Object
     },
     inputClassses: {
-      type: [String, Object, Array]
+      type: [String, Object, Array],
     },
     autoFocus: {
       type: Boolean,
-      default: false
+      default: false,
     },
     showPinned: {
       type: Boolean,
       default: false
     },
-    backgroundOverlay: {
-      type: Boolean,
-      default: false
-    },
     searchLimit: {
       type: Number,
-      default: 10
+      default: 4
+    },
+    hideGroupTitle: {
+      type: Boolean,
+      default: false
     }
   },
-  data () {
+  data() {
     return {
       searchQuery: '',
-      filteredData: [],
+      filteredData: {},
       currentSelected: -1,
       inputFocused: false,
-      insideSuggestions: false
+      insideSuggestions: false,
     }
   },
   watch: {
     // UPDATE SUGGESTIONS LIST
-    searchQuery (val) {
-      if (val === '') {
+    searchQuery(val) {
+      this.$emit('input', val)
+
+      if(val == '') {
         this.inputInit()
-        if (this.bodyOverlay) { this.$store.commit('TOGGLE_CONTENT_OVERLAY', false) }
-      } else {
-        if (this.backgroundOverlay && !this.bodyOverlay) { this.$store.commit('TOGGLE_CONTENT_OVERLAY', true) }
-        let exactEle = this.data.data.filter(item => {
-          return item.label
-            .toLowerCase()
-            .startsWith(this.searchQuery.toLowerCase())
-        })
-        let containEle = this.data.data.filter(item => {
-          return (
-            !item.label
-              .toLowerCase()
-              .startsWith(this.searchQuery.toLowerCase()) &&
-            item.label.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >
-              -1
-          )
-        })
-        this.filteredData = exactEle
-          .concat(containEle)
-          .slice(0, this.searchLimit)
-        if (!this.filteredData[0]) this.currentSelected = -1
-      }
+      }else {
+        let queried_data = {}
+        const data_grps = Object.keys(this.data)
 
-      // ADD: No result found
-      if (!this.filteredData.length && this.searchQuery) {
-        this.filteredData = [
-          {
-            highlightAction: false,
-            index: -1,
-            label: 'No results found.',
-            labelIcon: 'AlertCircleIcon',
-            url: null
-          }
-        ]
-      }
-    },
-    autoFocus (val) {
-      if (val) this.focusInput()
-      else this.searchQuery = ''
-    },
-    filteredData () {
-      // this.currentSelected = 0;
-      if (this.currentSelected < 0 && this.filteredData.length) {
-        this.currentSelected = 0
-      }
+        data_grps.forEach((grp, i) => {
+          queried_data[data_grps[i]] = this.filter_grp(this.data[grp])
+        })
 
-      // Prevent selecting if first item in list dont have url e.g. 'No Reult'
-      if (this.filteredData[0]) {
-        if (!this.filteredData[0].url) {
+        // Check if any of group has at least one queried item
+        if(!Object.values(queried_data).some(obj => obj.length)) {
           this.currentSelected = -1
         }
+
+        this.filteredData = queried_data
       }
-    }
-  },
-  computed: {
-    bodyOverlay () {
-      return this.$store.state.bodyOverlay
     },
-    actionClasses () {
-      return isHighlighted => {
-        if (isHighlighted) { return `stroke-current text-${this.data.highlightColor}` }
+    autoFocus(val) {
+      if(val) this.focusInput()
+      else this.searchQuery = ''
+    },
+    filteredData(val) {
+      // Auto Select first item if it's not item-404
+      let grp_index = null
+
+      for(let[index, grp_suggestions] of Object.values(val).entries()) {
+        if(grp_suggestions.length) {
+          grp_index = index
+          break
+        }
       }
+
+      if(grp_index != null) this.currentSelected = grp_index + ".0"
     }
   },
   methods: {
-    escPressed () {
+    escPressed() {
       this.$emit('closeSearchbar')
       this.searchQuery = ''
-      this.filteredData = []
     },
-    inputInit () {
-      if (this.showPinned) {
-        const starredData = this.data.data.filter(item => item.highlightAction)
-        this.filteredData = starredData
-      } else {
-        this.filteredData = []
+    filter_grp(grp) {
+      let exactEle = grp.data.filter((item) => {
+        return item[grp.key].toLowerCase().startsWith(this.searchQuery.toLowerCase())
+      })
+      let containEle = grp.data.filter((item) => {
+        return !item[grp.key].toLowerCase().startsWith(this.searchQuery.toLowerCase()) && item[grp.key].toLowerCase().indexOf(this.searchQuery.toLowerCase()) > -1
+      })
+      return exactEle.concat(containEle).slice(0,this.searchLimit)
+    },
+    inputInit() {
+      if(Object.entries(this.initalData).length === 0 && this.initalData.constructor === Object) {
+        this.filteredData = {}
+      }else {
+        this.filteredData = this.initalData
       }
     },
-    updateInputFocus (val = true) {
-      if (val) {
-        if (this.searchQuery === '') this.inputInit()
+    updateInputFocus(val = true) {
+      if(val) {
+        if(this.searchQuery == '') this.inputInit()
         setTimeout(() => {
           this.inputFocused = true
         }, 100)
-      } else {
-        if (this.insideSuggestions) return
+      }
+      else {
+        if(this.insideSuggestions) return
         setTimeout(() => {
           this.inputFocused = false
         }, 100)
         this.escPressed()
       }
     },
-    suggestionSelected () {
-      if (this.bodyOverlay && this.filteredData[0].url) { this.$store.commit('TOGGLE_CONTENT_OVERLAY', false) }
-      if (this.filteredData.length) {
-        if (this.filteredData[0].url) {
-          this.searchQuery = ''
-          if (this.currentSelected >= 0) { this.$emit('selected', this.filteredData[this.currentSelected]) } else this.$emit('selected', this.filteredData[0])
-          this.filteredData = []
-        }
+    suggestionSelected() {
+      if(this.currentSelected > -1) {
+
+        const [grp_index, item_index] = this.currentSelected.split(".")
+
+        const grp_of_selected_item = Object.keys(this.data)[grp_index]
+        const selected_item = this.filteredData[grp_of_selected_item][item_index]
+
+        this.$emit('selected', {[grp_of_selected_item]: selected_item})
+
+        this.searchQuery = ''
       }
     },
-    actionClicked () {
-      this.$emit('actionClicked', this.filteredData[this.currentSelected])
-      if (!this.filteredData[this.currentSelected].highlightAction) { this.filteredData.splice(this.currentSelected, 1) }
+    increaseIndex(val = true) {
+      const [grp_i, item_i] = this.currentSelected.split(".")
+
+      const grp_arr = Object.entries(this.filteredData)
+      const active_grp_total_items = grp_arr[grp_i][1].length
+
+
+        if(val) {
+          // If active item is not of last item in grp
+          if(active_grp_total_items-1 > item_i) {
+            this.currentSelected = grp_i + "." +  (Number(item_i)+1)
+
+          // If active item grp is not last in grp list
+          }else if(grp_i < grp_arr.length-1) {
+            this.currentSelected = Number(grp_i)+1 + ".0"
+          }
+        }else {
+          // If active item is not of first item in grp
+          if(Number(item_i)) {
+            this.currentSelected = grp_i + "." +  (Number(item_i)-1)
+
+          // If active item grp  is not first in grp list
+          }else if(Number(grp_i)) {
+            this.currentSelected = (Number(grp_i)-1) + "." + (grp_arr[grp_i-1][1].length-1)
+          }
+        }
     },
-    increaseIndex (val = false) {
-      if (!val && this.currentSelected > 0) this.currentSelected--
-      else if (
-        val &&
-        this.currentSelected < this.filteredData.length - 1 &&
-        this.filteredData[this.currentSelected + 1].index > -1
-      ) { this.currentSelected++ }
-      this.fixScrolling()
-    },
-    focusInput () {
+    focusInput() {
       this.$refs.input.$el.querySelector('input').focus()
-    },
-    fixScrolling () {
-      if (this.currentSelected > 0) {
-        const liH = this.$refs.option[this.currentSelected].clientHeight
-        const ulH = this.$refs.scrollContainer.clientHeight
-        if (ulH - liH * this.currentSelected < liH) {
-          this.$refs.scrollContainer.scrollTop = Math.round(
-            (this.currentSelected + 1 - ulH / liH + 1) * liH
-          )
-        }
-      }
     }
   },
-  mounted () {
-    if (this.autoFocus) this.focusInput()
+  mounted() {
+    if(this.autoFocus) this.focusInput()
   }
 }
 </script>

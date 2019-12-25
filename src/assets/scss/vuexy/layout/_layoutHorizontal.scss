@@ -42,7 +42,7 @@
 
   &.navbar-sticky {
     .router-content {
-      margin-top: 3.95rem;
+      margin-top: 4.5rem;
 
       @media (min-width: 1200px) {
         margin-top: 8.89rem;
@@ -73,7 +73,6 @@
 
   &.navbar-static {
     .router-content {
-      margin-top: 4.95rem;
 
       @media (min-width: 1200px) {
         margin-top: 1rem;
@@ -82,19 +81,47 @@
 
     #content-area {
       .content-wrapper {
-        min-height: calc(100vh - 8rem - 62px);
+        min-height: calc(var(--vh, 1vh) * 100 - 8rem - 62px);
       }
     }
 
     .vx-navbar-wrapper {
-      &.nav-menu-wrapper {
-        // margin-top: 62px;
+      &:not(.nav-menu-wrapper) {
+        @media (min-width: 1200px) {
+          position: fixed;
+        }
       }
 
-      &:not(.nav-menu-wrapper) {
-        position: fixed;
+      .vx-navbar {
+        @media (max-width: 1199px) {
+          background: transparent !important;
+          box-shadow: none;
+        }
       }
     }
+  }
+
+  &.navbar-hidden {
+    .vx-navbar-wrapper {
+      @media (max-width: 1199px) {
+        display: none;
+      }
+    }
+
+    .vx-navbar-wrapper {
+      position: fixed;
+
+      &.nav-menu-wrapper {
+        display: none;
+      }
+    }
+
+    .router-view {
+      @media (min-width: 1200px) {
+        margin-top: 4.5rem;
+      }
+    }
+
   }
 
   &:not(.navbar-static) {
@@ -129,63 +156,63 @@
 
   // For application pages]
   @media (min-width: 1200px) {
-    &.app-page {
+    &.no-scroll {
       .router-view {
         padding-bottom: 0;
       }
 
       &.navbar-floating {
-        .app-fixed-height {
-          height: calc(100vh - 16rem);
+        .no-scroll-content {
+          height: calc(var(--vh, 1vh) * 100 - 16rem);
         }
 
         &.footer-hidden {
-          .app-fixed-height {
-            height: calc(100vh - 13.4rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 13.4rem);
           }
         }
 
         &.footer-sticky {
-          .app-fixed-height {
-            height: calc(100vh - 16.7rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 16.7rem);
           }
         }
       }
 
       &.navbar-sticky {
-        .app-fixed-height {
-          height: calc(100vh - 14.7rem);
+        .no-scroll-content {
+          height: calc(var(--vh, 1vh) * 100 - 14.7rem);
         }
 
         &.footer-hidden {
-          .app-fixed-height {
-            height: calc(100vh - 12.7rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 12.7rem);
           }
         }
 
         &.footer-sticky {
-          .app-fixed-height {
-            height: calc(100vh - 16.2rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 16.2rem);
           }
         }
       }
 
       &.navbar-static {
         &.footer-static {
-          .app-fixed-height {
-            height: calc(100vh - 14.75rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 14.75rem);
           }
         }
 
         &.footer-sticky {
-          .app-fixed-height {
-            height: calc(100vh - 16.7rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 16.7rem);
           }
         }
 
         &.footer-hidden {
-          .app-fixed-height {
-            height: calc(100vh - 13rem);
+          .no-scroll-content {
+            height: calc(var(--vh, 1vh) * 100 - 13rem);
           }
         }
       }
